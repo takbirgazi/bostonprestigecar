@@ -1,5 +1,44 @@
 @import "tailwindcss";
 
+body {
+  font-family: var(--font-outfit);
+}
+
+.font-poppins {
+  font-family: var(--font-poppins);
+}
+
+.font-outfit {
+  font-family: var(--font-outfit);
+}
+
+.font-lato {
+  font-family: var(--font-lato);
+}
+
+.text-mainColor {
+  /* color: #1ecb15; */
+  color: #34a0de;
+}
+
+.hover-text-mainColor:hover {
+  color: #34a0de;
+}
+
+.bg-mainColor {
+  /* background-color: #1ecb15; */
+  background-color: #2d99d8;
+}
+
+.bg-secondColor {
+  /* background-color: #1ecb15; */
+  background-color: #34a0de;
+}
+
+.border-mainColor {
+  border-color: #34a0de;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
