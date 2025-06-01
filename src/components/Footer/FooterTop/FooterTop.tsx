@@ -1,29 +1,16 @@
-import { FaPhoneAlt } from "react-icons/fa";
+import Image from "next/image";
+import logoFooter from "@/assets/images/logoFooter.png";
 
 
 const FooterTop = () => {
     return (
-        <div className='bg-mainColor py-14 md:py-16 px-10'>
-            <div className='container mx-auto max-w-[1200px] px-4 flex flex-col md:flex-row gap-8 md:gap-20 justify-between'>
-                <div className='w-full md:w-1/2 flex justify-end'>
-                    <div className='w-full md:w-sm'>
-                        <div className='flex pb-3'>
-                            <p className='px-3 py-1 bg-[#d4af3548] rounded-sm font-bold text-white'>Call us for further information</p>
-                        </div>
-                        <h2 className='text-5xl text-white font-medium'>Rentaly customer care is here to help you anytime.</h2>
-                    </div>
-                </div>
-                <div className='w-full md:w-1/2'>
-                    <div className='w-full md:w-sm h-full flex gap-3 flex-col md:items-center md:justify-center '>
-                        <p className="text-white text-4xl"><FaPhoneAlt /></p>
-                        <p className="text-white uppercase text-xs tracking-[5px]">Call Us Now</p>
-                        <h2 className='text-4xl text-white font-semibold font-poppins'>1 200 333 800</h2>
-                        <div>
-                            <button className="px-5 py-1.5 rounded-sm bg-secondColor text-white font-semibold cursor-pointer">Contact Us</button>
-                        </div>
-                    </div>
-                </div>
+        <div className='pt-7 md:pt-8 px-10'>
+            <div className="flex flex-col items-center justify-center mb-8">
+                <figure>
+                    <Image src={logoFooter} alt="BostonExpressCab Footer Logo" />
+                </figure>
             </div>
+            <p className="text-center pb-7 md:pb-8 font-bold text-white max-w-4xl mx-auto">Welcome to Boston Express Cab, your premier transportation provider for the Greater Boston area and beyond.Since 2019, we&apos;ve proudly served Medford, MA, and surrounding regions, offering a diverse fleet of vehicles and exceptional service to cater to your diverse needs.</p>
         </div>
     );
 };

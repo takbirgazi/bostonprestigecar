@@ -26,7 +26,7 @@ const SelectOption: React.FC<SelectOptionType> = ({ selectOptionData }) => {
             }}
         >
             <Select required onValueChange={(value) => selectOptionData.selectValue(value)}>
-                <SelectTrigger className="w-full">
+                <SelectTrigger className="w-full border border-gray-300">
                     <SelectValue placeholder={`Select a ${selectOptionData.title}`} />
                 </SelectTrigger>
                 <SelectContent>
