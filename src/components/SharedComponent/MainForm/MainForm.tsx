@@ -386,7 +386,7 @@ const MainForm = () => {
                         </label>
                         <select
                             {...register("passengers", { required: "Passenger count is required" })}
-                            className="w-full p-2 border border-gray-300 rounded-sm focus:outline-0"
+                            className="w-full p-2 py-2.5 border border-gray-300 rounded-sm focus:outline-0"
                             defaultValue=""
                         >
                             {[1, 2, 3, 4, 5, 6, 7].map(num => (
