@@ -1,14 +1,14 @@
 "use client";
 import PageHeader from "@/components/SharedComponent/PageHeader/PageHeader";
-import pageHeaderBg from "@/assets/images/cars/pageHeadearBg.webp";
+import pageHeaderBg from "@/assets/images/pageHeadearBg.webp";
 import MainForm from "@/components/SharedComponent/MainForm/MainForm";
 import PopularCities from "@/components/HomeComponents/PopularCities/PopularCities";
 import Reviews from "@/components/HomeComponents/Reviews/Reviews";
 import { FaAnglesRight } from "react-icons/fa6";
 import Link from "next/link";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 
 const ServiceClient = () => {
@@ -26,7 +26,7 @@ const ServiceClient = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/service-posts${route}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/service-posts/${route}`, {
                 next: { revalidate: 60 },
             });
 
@@ -54,19 +54,19 @@ const ServiceClient = () => {
                         <h1 className="capitalize text-gray-500">{data.title}</h1>
                     </div>
                     <div>
-                        <h4 className="flex items-center gap-1">Ratings <b>126</b> votes, <b>4.5</b> out of 5, <b>rated</b> :
-                            <div className="flex items-center gap-1">
+                        <span className="flex items-center gap-1 flex-wrap">Ratings <strong>126</strong> votes, <strong>4.5</strong> out of 5, <strong>rated</strong> :
+                            <span className="flex items-center gap-1">
                                 <FaStar className="text-[#faa51b]" />
                                 <FaStar className="text-[#faa51b]" />
                                 <FaStar className="text-[#faa51b]" />
                                 <FaStar className="text-[#faa51b]" />
                                 <FaStarHalfAlt className="text-[#faa51b]" />
-                            </div>
-                        </h4>
+                            </span>
+                        </span>
                     </div>
                     <div className="py-4" dangerouslySetInnerHTML={{ __html: data.description }} />
                 </div>
-                <div className="w-full md:w-6/12 -mt-14">
+                <div className="w-full md:w-6/12 md:-mt-14">
                     <MainForm />
                 </div>
             </div>
