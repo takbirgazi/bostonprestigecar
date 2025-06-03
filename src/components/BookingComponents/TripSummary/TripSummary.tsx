@@ -16,7 +16,7 @@ interface Charge {
 const TripSummary: React.FC<Charge> = ({ bookingData }) => {
 
     return (
-        <div className="bg-white p-6 rounded-3xl shadow-md border-t-[6px] border-[#f6c015] space-y-4">
+        <div className="bg-white p-6 rounded-3xl shadow-md border-t-[6px] border-mainColor space-y-4">
             <h3 className="text-lg font-bold text-gray-800">Trip Summary</h3>
             {
                 bookingData.uuid ? <div className="text-sm space-y-2 text-gray-700">

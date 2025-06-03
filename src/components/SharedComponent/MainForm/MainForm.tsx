@@ -71,7 +71,7 @@ const MainForm = () => {
         formState: { errors },
     } = useForm<Inputs>({
         defaultValues: {
-            passengers: 0,
+            passengers: 1,
             children: 0,
             childSeats: 0,
             luggage: 0
@@ -196,17 +196,17 @@ const MainForm = () => {
                     setTotalFare(0);
                 } else {
                     setTotalFare(data.total_fare);
-                    setInfantSeatTotal(data.infantSeatExtraFare);
-                    setRegularSeatTotal(data.regularSeatExtraFare);
-                    setBoosterSeatTotal(data.boosterSeatExtraFare);
-                    setadditionalOptionsTotal(data.extraSeatFare);
-                    setVehicleName(data.vehicle_name);
-                    setNightCharge(data.night_charge);
-                    setLuggageCharge(data.extra_luggage);
-                    setAdditionalPetsTotal(data.petsSeatFare);
-                    setCatSeatTotal(data?.catSeatFare);
-                    setDogSeatTotal(data?.dogSeatFare);
                 }
+                setInfantSeatTotal(data.infantSeatExtraFare);
+                setRegularSeatTotal(data.regularSeatExtraFare);
+                setBoosterSeatTotal(data.boosterSeatExtraFare);
+                setadditionalOptionsTotal(data.extraSeatFare);
+                setVehicleName(data.vehicle_name);
+                setNightCharge(data.night_charge);
+                setLuggageCharge(data.extra_luggage);
+                setAdditionalPetsTotal(data.petsSeatFare);
+                setCatSeatTotal(data?.catSeatFare);
+                setDogSeatTotal(data?.dogSeatFare);
             })
             .catch(err => console.error('API Error:', err));
     }, [watchedPassengers, selectTime, watchedLuggage, infantSeats, regularSeats, boosterSeats, distance, dropoffPlaceId, catSeat, dogSeat, watch]);
@@ -270,7 +270,7 @@ const MainForm = () => {
 
                 // Assuming the API returns an ID in the response
                 if (result.data.uuid) {
-                    router.push(`/${result.data.uuid}`);
+                    router.push(`/booking/${result.data.uuid}`);
                 } else {
                     console.error("No ID received in response");
                 }
@@ -386,9 +386,7 @@ const MainForm = () => {
                         </label>
                         <select
                             {...register("passengers", { required: "Passenger count is required" })}
-                            className="w-full p-2 py-2.5 border border-gray-300 rounded-sm focus:outline-0"
-                            defaultValue=""
-                        >
+                            className="w-full p-2 py-2.5 border border-gray-300 rounded-sm focus:outline-0">
                             {[1, 2, 3, 4, 5, 6, 7].map(num => (
                                 <option key={num} value={num}>{num}</option>
                             ))}

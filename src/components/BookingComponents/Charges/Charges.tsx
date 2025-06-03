@@ -13,7 +13,7 @@ interface Charge {
 const Charges: React.FC<Charge> = ({ bookingData }) => {
 
     return (
-        <div className="bg-white p-6 rounded-3xl shadow-md border-t-[6px] border-[#f6c015] space-y-4">
+        <div className="bg-white p-6 rounded-3xl shadow-md border-t-[6px] border-mainColor space-y-4">
             <h3 className="text-lg font-bold text-gray-800">Charges</h3>
             {bookingData.uuid ? <>
                 <div className="rounded-2xl flex justify-center items-center">
@@ -23,7 +23,7 @@ const Charges: React.FC<Charge> = ({ bookingData }) => {
                 </div>
                 <div className="text-sm text-gray-700 space-y-1">
                     <ChargeItem label="Vehicle" value={bookingData.vehicle_name} />
-                    <ChargeItem label="Distance" value={`${Number(bookingData.distance).toFixed(1)} Miles`} />
+                    <ChargeItem label="Distance" value={`${bookingData.distance.split(".")[0]} Miles`} />
                     <ChargeItem label="Airport Toll" value={`$ ${bookingData.airport_toll || 0}`} />
                     <ChargeItem label="Extra Toll" value={`$ ${bookingData.extra_toll || 0}`} />
                     <ChargeItem label="Night Charge" value={`$ ${bookingData.night_charge || 0}`} />
