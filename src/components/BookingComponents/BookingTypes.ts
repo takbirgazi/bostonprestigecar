@@ -18,4 +18,6 @@ export interface BookingTypes {
     luggage_charge: string,
     extra_toll: string,
     airport_toll: string,
+    parking_toll: string,
+    gratuity: string,
 }

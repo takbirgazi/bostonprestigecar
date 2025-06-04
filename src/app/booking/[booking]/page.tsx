@@ -46,7 +46,9 @@ export default function BookingSummaryPage() {
     total_fare: '',
     luggage_charge: '',
     extra_toll: '',
-    airport_toll: ''
+    airport_toll: '',
+    parking_toll: '',
+    gratuity: ''
   })
 
   const [formData, setFormData] = useState({

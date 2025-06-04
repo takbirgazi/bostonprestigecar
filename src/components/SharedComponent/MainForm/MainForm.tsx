@@ -14,8 +14,6 @@ import toast from 'react-hot-toast';
 import LocationSearch from "./LocationSearch/LocationSearch";
 import { calculateDistance } from "@/app/utils/calculateDistance";
 
-
-
 type Inputs = {
     date: string;
     time: string;
@@ -63,6 +61,8 @@ const MainForm = () => {
     const [vehicleName, setVehicleName] = useState("");
     const [nightCharge, setNightCharge] = useState(0);
     const [luggageCharge, setLuggageCharge] = useState(0);
+    const [parkingToll, setParkingToll] = useState(0);
+    const [airportToll, setAirportToll] = useState(0);
 
     const {
         register,
@@ -176,6 +176,8 @@ const MainForm = () => {
     const watchedLuggage = watch("luggage");
 
     useEffect(() => {
+        const data1 = selectedVehicle === 1 ? "from_airport" : selectedVehicle === 2 ? "to_airport" : "door_to_door";
+        const data2 = selectedVehicle === 1 ? dropoffInp : selectedVehicle === 2 ? pickupInp : "door_to_door";
         const params = new URLSearchParams({
             passenger_seat: String(watchedPassengers),
             distance: distance !== null ? String(distance) : "0",
@@ -186,9 +188,10 @@ const MainForm = () => {
             dog_seat_number: String(dogSeat),
             luggage_number: String(watchedLuggage),
             selected_location: selectedVehicle === 1 ? "from_airport" : selectedVehicle === 2 ? "to_airport" : "door_to_door",
+            selected_airport_name: selectedVehicle === 1 ? dropoffInp : selectedVehicle === 2 ? pickupInp : "door_to_door",
             time: selectTime || "",
         });
-        console.log("Passengers:", String(watchedPassengers), "time:", String(selectTime), "distance:", String(distance), "infantSeats:", String(infantSeats), "regularSeats:", String(regularSeats), "boosterSeats:", String(boosterSeats), "selected Location", setSelectedVehicle, "luggage:", String(watchedLuggage))
+        console.log("Passengers:", String(watchedPassengers), "time:", String(selectTime), "distance:", String(distance), "infantSeats:", "selected_airport_name", data2, String(infantSeats), "regularSeats:", String(regularSeats), "boosterSeats:", String(boosterSeats), "selected Location", data1, "luggage:", String(watchedLuggage))
         fetch(`${process.env.NEXT_PUBLIC_BASE_API_2}/fare?` + params)
             .then(res => res.json())
             .then(data => {
@@ -208,9 +211,11 @@ const MainForm = () => {
                 setAdditionalPetsTotal(data.totalPetsFare);
                 setCatSeatTotal(data?.catSeatFare);
                 setDogSeatTotal(data?.dogSeatFare);
+                setParkingToll(data?.airport_toll);
+                setAirportToll(data?.parking_toll);
             })
             .catch(err => console.error('API Error:', err));
-    }, [watchedPassengers, selectTime, watchedLuggage, infantSeats, regularSeats, boosterSeats, distance, dropoffPlaceId, catSeat, dogSeat, watch]);
+    }, [watchedPassengers, selectTime, watchedLuggage, infantSeats, regularSeats, boosterSeats, distance, dropoffPlaceId, catSeat, dogSeat, selectedVehicle, pickupInp, dropoffInp, watch]);
 
     const toggleAdditionalOptions = () => {
         setShowAdditionalPetsOptions(false);
@@ -243,6 +248,8 @@ const MainForm = () => {
                     luggage_charge: luggageCharge.toString(),
                     distance: (distance ?? 0).toString(),
                     selected_location: selectedVehicle === 1 ? "from_airport" : selectedVehicle === 2 ? "to_airport" : "door_to_door",
+                    airport_toll: airportToll,
+                    airport_parking_toll: parkingToll,
                     additional_travel_detail: {
                         below_24_month_seat_number: infantSeats,
                         two_yrs_to_five_yrs_seat_number: regularSeats,
