@@ -185,9 +185,10 @@ const MainForm = () => {
             cat_seat_number: String(catSeat),
             dog_seat_number: String(dogSeat),
             luggage_number: String(watchedLuggage),
+            selected_location: selectedVehicle === 1 ? "from_airport" : selectedVehicle === 2 ? "to_airport" : "door_to_door",
             time: selectTime || "",
         });
-        console.log("Passengers:", String(watchedPassengers), "time:", String(selectTime), "distance:", String(distance), "infantSeats:", String(infantSeats), "regularSeats:", String(regularSeats), "boosterSeats:", String(boosterSeats), "luggage:", String(watchedLuggage))
+        console.log("Passengers:", String(watchedPassengers), "time:", String(selectTime), "distance:", String(distance), "infantSeats:", String(infantSeats), "regularSeats:", String(regularSeats), "boosterSeats:", String(boosterSeats), "selected Location", setSelectedVehicle, "luggage:", String(watchedLuggage))
         fetch(`${process.env.NEXT_PUBLIC_BASE_API_2}/fare?` + params)
             .then(res => res.json())
             .then(data => {
