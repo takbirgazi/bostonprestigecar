@@ -39,7 +39,7 @@ const Reviews = () => {
                                 className="relative bg-gradient-to-br from-blue-50 to-white shadow-lg rounded-2xl p-8 border border-blue-100 flex flex-col"
                             >
                                 <svg
-                                    className="absolute -top-5 left-6 w-10 h-10 text-blue-200 opacity-60"
+                                    className="absolute -top-5 left-6 w-10 h-10 text-red-200 opacity-60"
                                     fill="currentColor"
                                     viewBox="0 0 24 24"
                                 >
@@ -50,8 +50,8 @@ const Reviews = () => {
                                 </p>
                                 <div className="flex items-center justify-end mt-4">
                                     <div className="flex flex-col items-end">
-                                        <span className="font-bold text-blue-700 text-base">{review.name}</span>
-                                        <span className="w-12 h-1 bg-blue-200 rounded mt-1"></span>
+                                        <span className="font-bold text-mainColor text-base">{review.name}</span>
+                                        <span className="w-12 h-1 bg-red-200 rounded mt-1"></span>
                                     </div>
                                 </div>
                             </div>

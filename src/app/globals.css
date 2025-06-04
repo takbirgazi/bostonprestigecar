@@ -18,25 +18,28 @@ body {
 
 .text-mainColor {
   /* color: #1ecb15; */
-  color: #34a0de;
+  color: #fb3504;
 }
 
 .hover-text-mainColor:hover {
-  color: #34a0de;
+  color: #fb3504;
+}
+.hover-border-mainColor:hover {
+  border-color: #fb3504;
 }
 
 .bg-mainColor {
   /* background-color: #1ecb15; */
-  background-color: #2d99d8;
+  background-color: #da350b;
 }
 
 .bg-secondColor {
   /* background-color: #1ecb15; */
-  background-color: #34a0de;
+  background-color: #fb3504;
 }
 
 .border-mainColor {
-  border-color: #34a0de;
+  border-color: #fb3504;
 }
 
 :root {

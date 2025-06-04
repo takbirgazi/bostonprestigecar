@@ -61,7 +61,7 @@ const OurServices = () => {
                             />
                         </div>
                         <div className="p-4">
-                            <h3 className="text-lg text-blue-600 font-semibold">{service.heading}</h3>
+                            <h3 className="text-lg text-mainColor font-semibold">{service.heading}</h3>
                             <p className="mt-2 text-gray-700 text-sm">{service.description}</p>
                         </div>
                     </div>

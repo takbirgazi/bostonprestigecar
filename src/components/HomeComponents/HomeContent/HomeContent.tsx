@@ -1,5 +1,5 @@
 import Image from "next/image";
-import car_1 from "@/assets/images/cars/car_1.webp";
+import car_1 from "@/assets/images/homeImage_1.webp";
 import reviewImage from "@/assets/images/review.webp";
 
 const HomeContent = () => {
@@ -7,7 +7,7 @@ const HomeContent = () => {
         <div className="flex flex-col gap-8 py-8">
             <div className="flex flex-col md:flex-row gap-8">
                 <div className="w-full md:w-3/4">
-                    <h2 className="text-lg md:text-3xl text-mainColor font-bold font-lato pb-5">Need a Reliable Ride to or from Logan Airport? Book Boston Express Cab!</h2>
+                    <h2 className="text-lg md:text-3xl text-mainColor font-bold font-lato pb-5">Boston airport car service & taxi cab</h2>
                     <div className="flex justify-center items-center">
                         <figure>
                             <Image src={car_1} alt="Review" height={80} width={600} />

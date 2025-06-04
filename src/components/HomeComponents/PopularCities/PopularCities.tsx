@@ -75,12 +75,12 @@ const PopularCities = () => {
                         <Link
                             key={idx}
                             href={`/${city.url.split('/')[city.url.split('/').length - 1]}`}
-                            className="group bg-white hover:bg-blue-50 border border-gray-100 hover:border-blue-400 rounded-xl p-2 shadow-sm hover:shadow-lg transition-all duration-300 flex items-center gap-3"
+                            className="group bg-white hover:bg-blue-50 border border-gray-100 hover-border-mainColor rounded-xl p-2 shadow-sm hover:shadow-lg transition-all duration-300 flex items-center gap-3"
                         >
-                            <div className="p-2 bg-blue-100 rounded-full group-hover:bg-blue-500 transition">
-                                <FaCar className="text-blue-600 group-hover:text-white transition-colors duration-300 text-lg" />
+                            <div className="p-2 bg-blue-100 rounded-full group-hover-mainColor transition">
+                                <FaCar className="text-mainColor group-hover:text-white transition-colors duration-300 text-lg" />
                             </div>
-                            <span className="text-gray-700 group-hover:text-blue-700 font-medium text-sm md:text-base">
+                            <span className="text-gray-700 group-hover-mainColor font-medium text-sm md:text-base">
                                 {city.city_name}
                             </span>
                         </Link>

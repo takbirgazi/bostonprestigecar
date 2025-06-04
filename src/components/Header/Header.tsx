@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import MobileMenu from "./MobileMenu/MobileMenu";
 import { useEffect, useState } from "react";
-import logo from "@/assets/images/logo.svg"
+import logo from "@/assets/images/logo.png"
 import { MdCall } from "react-icons/md";
 
 
