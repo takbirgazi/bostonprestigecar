@@ -182,7 +182,7 @@ export default function BookingSummaryPage() {
       const data = await response.json();
       console.log(data)
       // setIsModalOpen(true);
-      window.location.href = process.env.NEXT_PUBLIC_PAYMENT_API as string;
+      window.location.href = `${process.env.NEXT_PUBLIC_PAYMENT_API}?user=${route.startsWith('/') ? route.slice(2) : route}` as string;
     } catch (error) {
       console.error('Error submitting form:', error);
       toast.error('Please try again');

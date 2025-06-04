@@ -182,8 +182,8 @@ const MainForm = () => {
             infant_extra_seat: String(infantSeats),
             regular_extra_seat: String(regularSeats),
             booster_extra_seat: String(boosterSeats),
-            cat_seat: String(catSeat),
-            dog_seat: String(dogSeat),
+            cat_seat_number: String(catSeat),
+            dog_seat_number: String(dogSeat),
             luggage_number: String(watchedLuggage),
             time: selectTime || "",
         });
@@ -204,7 +204,7 @@ const MainForm = () => {
                 setVehicleName(data.vehicle_name);
                 setNightCharge(data.night_charge);
                 setLuggageCharge(data.extra_luggage);
-                setAdditionalPetsTotal(data.petsSeatFare);
+                setAdditionalPetsTotal(data.totalPetsFare);
                 setCatSeatTotal(data?.catSeatFare);
                 setDogSeatTotal(data?.dogSeatFare);
             })
@@ -484,7 +484,7 @@ const MainForm = () => {
                         type="button"
                         onClick={toggleAdditionalPetsOptions}
                         className={`${showAdditionalPetsOptions ? "text-white bg-mainColor" : "text-mainColor bg-transparent"} w-full text-sm font-bold py-2 px-4 rounded border border-mainColor hover:bg-mainColor hover:text-white transition-colors duration-300 cursor-pointer`} >
-                        {showAdditionalPetsOptions ? 'Hide Pets Seat Option' : 'Add Pets Seat'}
+                        {showAdditionalPetsOptions ? 'Hide Pets Option' : 'Add Pets'}
                     </button>
                     {
                         childSeatsCount > 0 && <button

@@ -40,25 +40,34 @@ const Header = () => {
         },
         {
             id: 2,
-            title: "Logan Airport",
-            slag: "/logan-airport"
+            title: "Pickup Location",
+            slag: "/pickup-location-12"
         },
         {
             id: 3,
-            title: "Child Seat",
-            slag: "child-seat"
+            title: "Reservation",
+            slag: "/boston-taxi-reservation"
         },
         {
             id: 4,
-            title: "Minivan/SUV",
-            slag: "minivan"
+            title: "Minivan Taxi",
+            slag: "/minivan-taxi-cab-service-34"
         },
         {
             id: 5,
+            title: "Long Distance",
+            slag: "/long-distance-car-service-33"
+        },
+        {
+            id: 6,
             title: "Contact",
             slag: "/contact"
         },
-
+        {
+            id: 7,
+            title: "Blog",
+            slag: "/blog"
+        },
     ]
     return (
         // <nav className="bg-transparent py-4 z-40 fixed w-full">
