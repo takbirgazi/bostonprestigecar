@@ -25,10 +25,8 @@ export default function BookingSummaryPage() {
   const [isTraveler, setIsTraveler] = useState(true);
   const path = usePathname();
   const route = path.split("/")[2];
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [bookingData, setBookingData] = useState<BookingTypes>({
-    session_id: '',
     uuid: '',
     date: '',
     time: '',

@@ -1,5 +1,4 @@
 export interface BookingTypes {
-    session_id: string,
     uuid: string,
     date: string,
     time: string,

@@ -25,6 +25,8 @@ const Charges: React.FC<Charge> = ({ bookingData }) => {
                     <ChargeItem label="Vehicle" value={bookingData.vehicle_name} />
                     <ChargeItem label="Distance" value={`${bookingData.distance.split(".")[0]} Miles`} />
                     <ChargeItem label="Airport Toll" value={`$ ${bookingData.airport_toll || 0}`} />
+                    <ChargeItem label="Parking Toll" value={`$ ${bookingData.parking_toll || 0}`} />
+                    <ChargeItem label="Gratuity" value={`$ ${bookingData.gratuity || 0}`} />
                     <ChargeItem label="Extra Toll" value={`$ ${bookingData.extra_toll || 0}`} />
                     <ChargeItem label="Night Charge" value={`$ ${bookingData.night_charge || 0}`} />
                     <ChargeItem label="Extra Luggage" value={`$ ${bookingData.luggage_charge || 0}`} />
