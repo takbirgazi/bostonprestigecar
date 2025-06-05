@@ -1,6 +1,6 @@
 
 import MainForm from "@/components/SharedComponent/MainForm/MainForm";
-import heroBg from "@/assets/images/heroBg2.jpg";
+import heroBg from "@/assets/images/heroBg.webp";
 
 const Hero = () => {
 
