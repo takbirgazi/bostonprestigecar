@@ -40,33 +40,28 @@ const Header = () => {
         },
         {
             id: 2,
-            title: "Pickup Location",
-            slag: "/pickup-location-12"
+            title: "Logan Airport",
+            slag: "/logan-airport"
         },
         {
             id: 3,
-            title: "Reservation",
-            slag: "/boston-taxi-reservation"
+            title: "Child Seat",
+            slag: "/child-seat"
         },
         {
             id: 4,
-            title: "Minivan Taxi",
-            slag: "/minivan-taxi-cab-service-34"
+            title: "Minivan/SUV",
+            slag: "/minivan-suv"
         },
         {
             id: 5,
-            title: "Long Distance",
-            slag: "/long-distance-car-service-33"
+            title: "Blog",
+            slag: "/blog"
         },
         {
             id: 6,
             title: "Contact",
             slag: "/contact"
-        },
-        {
-            id: 7,
-            title: "Blog",
-            slag: "/blog"
         },
     ]
     return (

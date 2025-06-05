@@ -1,7 +1,8 @@
+import AboutUs from "@/components/HomeComponents/AboutUs/AboutUs";
 import Hero from "@/components/HomeComponents/Hero/Hero";
 import HeroMobile from "@/components/HomeComponents/Hero/HeroMobile";
 import HomeContent from "@/components/HomeComponents/HomeContent/HomeContent";
-import OurServices from "@/components/HomeComponents/OurServices/OurServices";
+import HowWork from "@/components/HomeComponents/HowWork/HowWork";
 import PopularCities from "@/components/HomeComponents/PopularCities/PopularCities";
 import Rents from "@/components/HomeComponents/Rents/Rents";
 import Reviews from "@/components/HomeComponents/Reviews/Reviews";
@@ -20,7 +21,9 @@ export default function Home() {
       </div>
       <div className="max-w-[1250px] mx-auto px-4">
         <HomeContent />
-        <OurServices />
+        <AboutUs />
+        <HowWork />
+        {/* <OurServices /> */}
         <SpecializedFeatures />
       </div>
       <PopularCities />
