@@ -46,7 +46,21 @@ export default function BookingSummaryPage() {
     extra_toll: '',
     airport_toll: '',
     parking_toll: '',
-    gratuity: ''
+    gratuity: '',
+    gratuity_percentage: '',
+    airport_parking_toll: '',
+    hidden_night_charge: '',
+    rush_hour_charge: '',
+    extra_luggage: '',
+    stop_over_charge: '',
+    snow_strom_charge: '',
+    distance_fare: '',
+    discountAmount: '',
+    cash_discount_percentage: '',
+    additional_travel_detail: {
+      extraSeatFare: '',
+      totalPetsFare: '',
+    }
   })
 
   const [formData, setFormData] = useState({

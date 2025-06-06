@@ -19,4 +19,18 @@ export interface BookingTypes {
     airport_toll: string,
     parking_toll: string,
     gratuity: string,
+    gratuity_percentage: string,
+    airport_parking_toll: string,
+    hidden_night_charge: string,
+    rush_hour_charge: string,
+    extra_luggage: string,
+    stop_over_charge: string,
+    snow_strom_charge: string,
+    distance_fare: string,
+    discountAmount: string,
+    cash_discount_percentage: string,
+    additional_travel_detail: {
+        extraSeatFare: string,
+        totalPetsFare: string,
+    }
 }

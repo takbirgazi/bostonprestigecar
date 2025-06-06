@@ -63,6 +63,16 @@ const MainForm = () => {
     const [luggageCharge, setLuggageCharge] = useState(0);
     const [parkingToll, setParkingToll] = useState(0);
     const [airportToll, setAirportToll] = useState(0);
+    const [distanceFare, setDistanceFare] = useState(0);
+    const [gratuity, setGratuity] = useState(0);
+    const [gratuityPercentage, setGratuityPercentage] = useState(0);
+    const [hiddenNightCharge, setHiddenNightCharge] = useState(0);
+    const [rushHourCharge, setRushHourCharge] = useState(0);
+    const [stopOverCharge, setStopOverCharge] = useState(0);
+    const [snowStromCharge, setSnowStromCharge] = useState(0);
+    const [cashDiscountPercentage, setCashDiscountPercentage] = useState(0);
+    const [discountAmount, setDiscountAmount] = useState(0);
+    const [extraLuggage, setExtraLuggage] = useState(0);
 
     const {
         register,
@@ -213,6 +223,16 @@ const MainForm = () => {
                 setDogSeatTotal(data?.dogSeatFare);
                 setParkingToll(data?.airport_toll);
                 setAirportToll(data?.parking_toll);
+                setDistanceFare(data?.distance_fare);
+                setGratuity(data?.gratuity);
+                setGratuityPercentage(data?.gratuity_percentage);
+                setHiddenNightCharge(data?.hidden_night_charge);
+                setRushHourCharge(data?.rush_hour_charge);
+                setStopOverCharge(data?.stop_over_charge);
+                setSnowStromCharge(data?.snow_strom_charge);
+                setCashDiscountPercentage(data?.cash_discount_percentage);
+                setDiscountAmount(data?.discountAmount);
+                setExtraLuggage(data?.extra_luggage);
             })
             .catch(err => console.error('API Error:', err));
     }, [watchedPassengers, selectTime, watchedLuggage, infantSeats, regularSeats, boosterSeats, distance, dropoffPlaceId, catSeat, dogSeat, selectedVehicle, pickupInp, dropoffInp, watch]);
@@ -250,12 +270,24 @@ const MainForm = () => {
                     selected_location: selectedVehicle === 1 ? "from_airport" : selectedVehicle === 2 ? "to_airport" : "door_to_door",
                     airport_toll: airportToll,
                     airport_parking_toll: parkingToll,
+                    distance_fare: distanceFare,
+                    gratuity: gratuity.toString(),
+                    gratuity_percentage: gratuityPercentage,
+                    hidden_night_charge: hiddenNightCharge,
+                    rush_hour_charge: rushHourCharge,
+                    stop_over_charge: stopOverCharge,
+                    snow_strom_charge: snowStromCharge,
+                    cash_discount_percentage: cashDiscountPercentage,
+                    discountAmount: discountAmount,
+                    extra_luggage: extraLuggage,
                     additional_travel_detail: {
                         below_24_month_seat_number: infantSeats,
                         two_yrs_to_five_yrs_seat_number: regularSeats,
                         five_yrs_to_eight_yrs_seat_number: boosterSeats,
                         cat_seat_number: catSeat,
                         dog_seat_number: dogSeat,
+                        extraSeatFare: additionalOptionsTotal,
+                        totalPetsFare: additionalPetsTotal,
                     }
                 };
 
