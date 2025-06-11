@@ -32,5 +32,6 @@ export interface BookingTypes {
     additional_travel_detail: {
         extraSeatFare: string,
         totalPetsFare: string,
-    }
+    },
+    minimum_fare: string,
 }

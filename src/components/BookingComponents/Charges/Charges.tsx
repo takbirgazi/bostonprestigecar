@@ -31,6 +31,9 @@ const Charges: React.FC<Charge> = ({ bookingData }) => {
                     {bookingData.distance_fare && Number(bookingData.distance_fare) > 0 && (
                         <ChargeItem label="Distance Fare" value={`$ ${bookingData.distance_fare}`} />
                     )}
+                    {bookingData.minimum_fare && Number(bookingData.minimum_fare) > 0 && (
+                        <ChargeItem label="Minimum Fare" value={`$ ${bookingData.minimum_fare}`} />
+                    )}
                     {bookingData.airport_toll && Number(bookingData.airport_toll) > 0 && (
                         <ChargeItem label="Airport Toll" value={`$ ${bookingData.airport_toll}`} />
                     )}

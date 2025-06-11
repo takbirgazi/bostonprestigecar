@@ -60,7 +60,8 @@ export default function BookingSummaryPage() {
     additional_travel_detail: {
       extraSeatFare: '',
       totalPetsFare: '',
-    }
+    },
+    minimum_fare: ''
   })
 
   const [formData, setFormData] = useState({

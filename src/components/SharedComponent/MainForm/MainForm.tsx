@@ -73,6 +73,7 @@ const MainForm = () => {
     const [cashDiscountPercentage, setCashDiscountPercentage] = useState(0);
     const [discountAmount, setDiscountAmount] = useState(0);
     const [extraLuggage, setExtraLuggage] = useState(0);
+    const [minimumFare, setMinimumFare] = useState(0);
 
     const {
         register,
@@ -233,6 +234,7 @@ const MainForm = () => {
                 setCashDiscountPercentage(data?.cash_discount_percentage);
                 setDiscountAmount(data?.discountAmount);
                 setExtraLuggage(data?.extra_luggage);
+                setMinimumFare(data?.minimumFare);
             })
             .catch(err => console.error('API Error:', err));
     }, [watchedPassengers, selectTime, watchedLuggage, infantSeats, regularSeats, boosterSeats, distance, dropoffPlaceId, catSeat, dogSeat, selectedVehicle, pickupInp, dropoffInp, watch]);
@@ -280,6 +282,7 @@ const MainForm = () => {
                     cash_discount_percentage: cashDiscountPercentage,
                     discountAmount: discountAmount,
                     extra_luggage: extraLuggage,
+                    minimum_fare: minimumFare,
                     additional_travel_detail: {
                         below_24_month_seat_number: infantSeats,
                         two_yrs_to_five_yrs_seat_number: regularSeats,
