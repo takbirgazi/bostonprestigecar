@@ -39,12 +39,14 @@ const BlogCard: React.FC<BlogPostProps> = ({ blogData }) => {
                     </p>
                 )}
                 <h2 className="text-lg md:text-xl font-bold mb-2 text-gray-900 hover:text-indigo-600 transition-colors duration-200">
-                    <Link href={`/blog/${blogData.slug}`}>{blogData.title}</Link>
+                    <Link href={`/blog/${blogData.slug}`}>{blogData.title.length > 50 ? blogData.title.slice(0, 50) + "..." : blogData.title}</Link>
                 </h2>
                 <p className="text-sm text-gray-400 mb-2">{formattedDate}</p>
-                <p className="text-gray-600 text-sm line-clamp-3 mb-4 flex-grow">
-                    {blogData.description}
-                </p>
+                {/* <p className="text-gray-600 text-sm line-clamp-3 mb-4 flex-grow">
+                    <span
+                        dangerouslySetInnerHTML={{ __html: blogData.description }}
+                    />
+                </p> */}
                 <div>
                     <Link
                         href={`/blog/${blogData.id}`}
