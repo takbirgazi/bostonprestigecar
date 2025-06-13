@@ -28,8 +28,8 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: "Boston Express Cab",
-  description: "Boston Airport",
+  title: "Boston Prestige Car",
+  description: "bostonprestigecar",
 };
 
 export default function RootLayout({
