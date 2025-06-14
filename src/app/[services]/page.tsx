@@ -37,19 +37,19 @@ export async function generateMetadata({ params }: {
     };
 }
 
-// Add generateStaticParams for static export
-export async function generateStaticParams() {
-    // Fetch all possible service slugs from your API
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/service-posts`, {
-        next: { revalidate: 60 },
-    });
-    if (!res.ok) return [];
-    const data = await res.json();
-    // Assuming data is an array of service objects with a 'slug' property
-    return data.map((item: { slug: string }) => ({
-        services: item.slug,
-    }));
-}
+// // Add generateStaticParams for static export
+// export async function generateStaticParams() {
+//     // Fetch all possible service slugs from your API
+//     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/service-posts`, {
+//         next: { revalidate: 60 },
+//     });
+//     if (!res.ok) return [];
+//     const data = await res.json();
+//     // Assuming data is an array of service objects with a 'slug' property
+//     return data.map((item: { slug: string }) => ({
+//         services: item.slug,
+//     }));
+// }
 
 export default async function ServicePage({ params }: {
     params: Promise<{
