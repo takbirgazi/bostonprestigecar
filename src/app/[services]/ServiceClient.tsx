@@ -8,11 +8,9 @@ import { FaAnglesRight } from "react-icons/fa6";
 import Link from "next/link";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 
 
-const ServiceClient = () => {
-    const route = usePathname();
+const ServiceClient = ({ route }: { route: string }) => {
     const [pageHeading, setPageHeading] = useState("");
     const [data, setData] = useState({
         title: "",
