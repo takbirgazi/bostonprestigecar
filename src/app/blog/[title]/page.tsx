@@ -15,7 +15,7 @@ export async function generateStaticParams() {
     return blogTitles.map((title: string): StaticParam => ({ title }));
 }
 
-export default async function BlogPage({ params }: { params: { title: string } }) {
+export default async function BlogPage({ params }: { params: Promise<{ title: string }> }) {
     const { title } = await params;
     return <SingleBlogClient slug={title} />;
 }
