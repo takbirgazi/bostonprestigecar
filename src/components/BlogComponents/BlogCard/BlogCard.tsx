@@ -29,7 +29,7 @@ const BlogCard: React.FC<BlogPostProps> = ({ blogData }) => {
         <div className="rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 bg-white h-full flex flex-col">
             <div className="relative w-full h-56">
                 <figure className='h-full w-full overflow-hidden'>
-                    <Image className='w-full h-full object-cover' src={`https://maamun.xyz/boston/public/${blogData.photo}`} alt={blogData.title} height={400} width={600} />
+                    <Image className='w-full h-full object-cover' src={`https://bostonprestigecar.com/public/${blogData.photo}`} alt={blogData.title} height={400} width={600} />
                 </figure>
             </div>
             <div className="p-5 flex-grow flex flex-col">

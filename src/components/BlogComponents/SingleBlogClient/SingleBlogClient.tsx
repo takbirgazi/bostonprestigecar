@@ -92,7 +92,7 @@ const SingleBlogClient = ({slug}:{slug:string}) => {
     const formattedDate = new Date(blog.created_at).toLocaleDateString();
     const pageHeaderData = {
         heading: blog.title,
-        bgImage: `https://maamun.xyz/boston/public/${blog.photo}`,
+        bgImage: `https://bostonprestigecar.com/public/${blog.photo}`,
     };
 
     return (
@@ -108,7 +108,7 @@ const SingleBlogClient = ({slug}:{slug:string}) => {
                     {blog.photo && (
                         <div className="relative w-full min-h-80 mb-6 rounded-md overflow-hidden">
                             <Image
-                                src={`https://maamun.xyz/boston/public/${blog.photo}`}
+                                src={`https://bostonprestigecar.com/public/${blog.photo}`}
                                 alt={blog.title}
                                 fill
                                 className="object-cover"
