@@ -8,6 +8,8 @@ import { FaAnglesRight } from "react-icons/fa6";
 import Link from "next/link";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import Image from "next/image";
+import reviewImage from "@/assets/images/review.webp";
 
 
 const ServiceClient = ({ route }: { route: string }) => {
@@ -44,7 +46,7 @@ const ServiceClient = ({ route }: { route: string }) => {
     return (
         <div className="bg-[#ffffff]">
             <PageHeader pageHeaderData={pageHeaderData} />
-            <div className="flex flex-col md:flex-row gap-8 max-w-[1250px] mx-auto px-4">
+            <div className="flex flex-col-reverse md:flex-row gap-8 max-w-[1250px] mx-auto px-4">
                 <div className="w-full md:w-7/12 py-5">
                     <div className="flex items-center gap-2 text-xs font-medium mb-4">
                         <Link href="/" className="text-mainColor">Home</Link>
@@ -66,6 +68,14 @@ const ServiceClient = ({ route }: { route: string }) => {
                 </div>
                 <div className="w-full md:w-6/12 md:-mt-14">
                     <MainForm />
+                    <div className="w-full md:w-1/2 mx-auto">
+                        <figure className="py-5 hidden md:block">
+                            <Image src={reviewImage} alt="Review" height={600} width={800} />
+                        </figure>
+                        <figure className="py-5 block md:hidden">
+                            <Image src={reviewImage} alt="Review" height={600} width={800} />
+                        </figure>
+                    </div>
                 </div>
             </div>
             <div className="py-12">

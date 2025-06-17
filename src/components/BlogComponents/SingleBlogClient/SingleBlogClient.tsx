@@ -14,7 +14,7 @@ interface BlogPost {
     created_at: string;
 }
 
-const SingleBlogClient = ({slug}:{slug:string}) => {
+const SingleBlogClient = ({ slug }: { slug: string }) => {
 
     const [blog, setBlog] = useState<BlogPost | null>(null);
     const [recentPosts, setRecentPosts] = useState<BlogPost[]>([]);
@@ -91,7 +91,8 @@ const SingleBlogClient = ({slug}:{slug:string}) => {
 
     const formattedDate = new Date(blog.created_at).toLocaleDateString();
     const pageHeaderData = {
-        heading: blog.title,
+        // heading: blog.title,
+        heading: '',
         bgImage: `https://bostonprestigecar.com/public/${blog.photo}`,
     };
 
@@ -108,11 +109,11 @@ const SingleBlogClient = ({slug}:{slug:string}) => {
                     {blog.photo && (
                         <div className="relative w-full min-h-80 mb-6 rounded-md overflow-hidden">
                             <Image
-                                src={`https://bostonprestigecar.com/public/${blog.photo}`}
+                                src={`https://admin.bostonprestigecar.com/${blog.photo}`}
                                 alt={blog.title}
-                                fill
+                                width={1250}
+                                height={400}
                                 className="object-cover"
-                                priority
                             />
                         </div>
                     )}
