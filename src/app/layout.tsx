@@ -5,6 +5,7 @@ import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import SmoothScrollWrapper from "./SmoothScrollWrapper";
 import { Toaster } from "react-hot-toast";
+import StoreProvider from "./StoreProvider";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -44,7 +45,9 @@ export default function RootLayout({
       >
         <Header />
         <SmoothScrollWrapper>
-          {children}
+          <StoreProvider>
+            {children}
+          </StoreProvider>
         </SmoothScrollWrapper>
         <Footer />
         <Toaster />

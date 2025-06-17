@@ -13,6 +13,8 @@ import SelectOption from "./SelectOption/SelectOption";
 import toast from 'react-hot-toast';
 import LocationSearch from "./LocationSearch/LocationSearch";
 import { calculateDistance } from "@/app/utils/calculateDistance";
+import { useAppDispatch } from "@/lib/hooks";
+import { setFrom } from "@/lib/features/formdata/formdataSlice";
 
 type Inputs = {
     date: string;
@@ -74,6 +76,7 @@ const MainForm = () => {
     const [discountAmount, setDiscountAmount] = useState(0);
     const [extraLuggage, setExtraLuggage] = useState(0);
     const [minimumFare, setMinimumFare] = useState(0);
+    const dispatch = useAppDispatch();
 
     const {
         register,
@@ -313,7 +316,8 @@ const MainForm = () => {
 
                 // Assuming the API returns an ID in the response
                 if (result.data.uuid) {
-                    router.push(`/booking/${result.data.uuid}`);
+                    dispatch(setFrom(result.data.uuid));
+                    router.push(`/add-to-cart`);
                 } else {
                     console.error("No ID received in response");
                 }
