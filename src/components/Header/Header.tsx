@@ -61,7 +61,7 @@ const Header = () => {
         {
             id: 6,
             title: "Contact",
-            slag: "/contact"
+            slag: "/contact-us.php"
         },
     ]
     return (
