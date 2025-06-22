@@ -37,7 +37,7 @@ const PopularCities = () => {
                     {cities.map((city, idx) => (
                         <Link
                             key={idx}
-                            href={`/${city.url.split('/')[city.url.split('/').length - 1]}`}
+                            href={city.url}
                             className="group bg-white hover:bg-blue-50 border border-gray-100 hover-border-mainColor rounded-xl p-2 shadow-sm hover:shadow-lg transition-all duration-300 flex items-center gap-3"
                         >
                             <div className="p-2 bg-blue-100 rounded-full group-hover-mainColor transition">

@@ -3,6 +3,7 @@
 import PageHeader from "@/components/SharedComponent/PageHeader/PageHeader";
 import Image from "next/image";
 import Link from "next/link";
+import loadingImage from "@/assets/images/loading2.gif";
 import { useEffect, useState } from "react";
 
 interface BlogPost {
@@ -70,7 +71,9 @@ const SingleBlogClient = ({ slug }: { slug: string }) => {
     if (loading) {
         return (
             <div className="flex items-center justify-center h-screen bg-gradient-to-r from-blue-100 via-white to-blue-100">
-                <p className="text-gray-600">Loading blog...</p>
+                <figure className='flex justify-center items-center'>
+                    <Image width={50} height={50} src={loadingImage} alt="Loading..." />
+                </figure>
             </div>
         );
     }
@@ -81,7 +84,7 @@ const SingleBlogClient = ({ slug }: { slug: string }) => {
                 <div>
                     <h1 className="text-3xl font-bold text-red-600">404 - Blog Not Found</h1>
                     <p className="text-gray-600 mt-2">Sorry, the blog post you&lsquo;re looking for doesn&lsquo;t exist.</p>
-                    <Link href="/" className="inline-block mt-4 text-indigo-600 hover:underline">
+                    <Link href="/" className="inline-block mt-4 text-mainColor hover:underline">
                         Go to homepage
                     </Link>
                 </div>
@@ -93,7 +96,7 @@ const SingleBlogClient = ({ slug }: { slug: string }) => {
     const pageHeaderData = {
         // heading: blog.title,
         heading: '',
-        bgImage: `https://bostonprestigecar.com/public/${blog.photo}`,
+        bgImage: `https://admin.bostonprestigecar.com/${blog.photo}`,
     };
 
     return (

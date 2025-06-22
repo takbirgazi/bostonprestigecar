@@ -1,0 +1,11 @@
+User-agent: * 
+Disallow: /admin
+Disallow: /login
+Disallow: /register
+Disallow: /admin-signin
+Disallow: /affiliate-signin
+Disallow: /affiliate
+
+Allow: /
+
+Sitemap: https://bostonprestigecar.com/sitemap.xml

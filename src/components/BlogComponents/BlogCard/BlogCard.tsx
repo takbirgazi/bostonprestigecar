@@ -34,12 +34,12 @@ const BlogCard: React.FC<BlogPostProps> = ({ blogData }) => {
             </div>
             <div className="p-5 flex-grow flex flex-col">
                 {blogData.meta_tag && (
-                    <p className="text-xs uppercase tracking-wide text-indigo-500 font-semibold mb-1">
+                    <p className="text-xs uppercase tracking-wide text-mainColor font-semibold mb-1">
                         {blogData.meta_tag}
                     </p>
                 )}
                 <h2 className="text-lg md:text-xl font-bold mb-2 text-gray-900 hover:text-indigo-600 transition-colors duration-200">
-                    <Link href={`/blog/${blogData.slug}`}>{blogData.title.length > 50 ? blogData.title.slice(0, 50) + "..." : blogData.title}</Link>
+                    <Link href={`https://bostonprestigecar.com/blog/${blogData.slug}`}>{blogData.title.length > 50 ? blogData.title.slice(0, 50) + "..." : blogData.title}</Link>
                 </h2>
                 <p className="text-sm text-gray-400 mb-2">{formattedDate}</p>
                 {/* <p className="text-gray-600 text-sm line-clamp-3 mb-4 flex-grow">
@@ -49,7 +49,7 @@ const BlogCard: React.FC<BlogPostProps> = ({ blogData }) => {
                 </p> */}
                 <div>
                     <Link
-                        href={`/blog/${blogData.slug}`}
+                        href={`https://bostonprestigecar.com/blog/${blogData.slug}`}
                         className="text-sm text-indigo-600 font-medium hover:underline mt-auto flex items-center gap-1 group"
                         aria-label={`Read more about ${blogData.title}`}
                     >

@@ -34,7 +34,7 @@ const SelectOption: React.FC<SelectOptionType> = ({ selectOptionData }) => {
                         <SelectLabel>{selectOptionData.title}</SelectLabel>
                         {
                             selectOptionData.selectData.map(time => (
-                                <SelectItem key={time.id} value={time.value}>
+                                <SelectItem className="md:text-base text-2xl" key={time.id} value={time.value}>
                                     {time.title}
                                 </SelectItem>
                             ))

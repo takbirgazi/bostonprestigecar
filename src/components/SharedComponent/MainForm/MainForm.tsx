@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import fromImage from "@/assets/images/icons/arraving-airplane-white.png";
 import toImage from "@/assets/images/icons/plane-taking-off-white.png";
@@ -15,28 +15,22 @@ import LocationSearch from "./LocationSearch/LocationSearch";
 import { calculateDistance } from "@/app/utils/calculateDistance";
 import { useAppDispatch } from "@/lib/hooks";
 import { setFrom } from "@/lib/features/formdata/formdataSlice";
+import { AirportList, Inputs, PlaceSelectHandler } from "./MainFromTypes";
 
-type Inputs = {
-    date: string;
-    time: string;
-    luggage: number;
-    passengers: number;
-    children: number;
-    childSeats: number;
-    pickup: string;
-    pickupInp: string;
-    dropoff: string;
-    dropoffInp: string;
-};
 
-interface PlaceSelectHandler {
-    (placeId: string, description: string): void;
-}
 const MainForm = () => {
     const router = useRouter();
     const [selectedVehicle, setSelectedVehicle] = useState(1); // Default to From Airport (id: 1)
     const [showAdditionalOptions, setShowAdditionalOptions] = useState(true);
     const [showAdditionalPetsOptions, setShowAdditionalPetsOptions] = useState(false);
+    const [airports, setAirports] = useState<AirportList[]>([]);
+    const [selectedAirportName, setSelectedAirportName] = useState<AirportList>({
+        id: 1,
+        place_id: "",
+        name: ""
+        // place_id: "ChIJN0na1RRw44kRRFEtH8OUkww",
+        // name: "Boston Logan International Airport (BOS)"
+    });
     const [catSeat, setCatSeat] = useState(0);
     const [catSeatTotal, setCatSeatTotal] = useState(0);
     const [dogSeat, setDogSeat] = useState(0);
@@ -86,9 +80,13 @@ const MainForm = () => {
     } = useForm<Inputs>({
         defaultValues: {
             passengers: 1,
+            stopover: 0,
+            byke: 0,
             children: 0,
             childSeats: 0,
-            luggage: 0
+            pickup: "Boston Logan International Airport (BOS), East Boston, MA, USA",
+            dropoff: "Boston Logan International Airport (BOS), East Boston, MA, USA",
+            luggage: 0,
         }
     });
 
@@ -96,24 +94,44 @@ const MainForm = () => {
     const childrenCount = watch("children");
     const childSeatsCount = watch("childSeats");
     // Date handling
-    const today = new Date();
+    const today = useMemo(() => new Date(), []);
     const minDate = format(today, 'yyyy-MM-dd');
     const maxDate = format(addDays(today, 90), 'yyyy-MM-dd'); // Allow booking up to 90 days in advance
 
     // Sample airport data - replace with your actual airport data
-    const airports = [
-        { id: 1, place_id: "ChIJN0na1RRw44kRRFEtH8OUkww", name: "Boston Logan International Airport (BOS)" },
-    ];
+    useEffect(() => {
+        fetch(`${process.env.NEXT_PUBLIC_BASE_API_2}/airports`)
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    const sortedAirports = data
+                        .map((airport) => ({
+                            id: airport.id,
+                            place_id: airport.place_id,
+                            name: airport.name
+                        }))
+                    // .sort((a, b) => b.id - a.id); // Sort descending by id
 
+                    setAirports(sortedAirports);
+                    setSelectedAirportName(sortedAirports[0])
+                }
+            })
+            .catch(err => {
+                console.error("Failed to fetch airports:", err);
+            });
+    }, [])
     // Validate time selection when date or selectTime changes
+    const watchedDate = watch("date");
     useEffect(() => {
         if (selectedVehicle == 1) {
-            setPickupPlaceId("ChIJN0na1RRw44kRRFEtH8OUkww");
+            setPickupPlaceId(selectedAirportName?.place_id);
+            console.log(selectedAirportName?.place_id)
         } else if (selectedVehicle == 2) {
-            setDropoffPlaceId("ChIJN0na1RRw44kRRFEtH8OUkww");
+            setDropoffPlaceId(selectedAirportName?.place_id);
+            console.log(selectedAirportName?.place_id)
         }
 
-        if (watch("date") === format(today, 'yyyy-MM-dd')) {
+        if (watchedDate === format(today, 'yyyy-MM-dd')) {
             if (
                 selectTime &&
                 (
@@ -148,7 +166,7 @@ const MainForm = () => {
                 }
             }
         }
-    }, [watch("date"), selectTime, selectedVehicle]);
+    }, [watchedDate, selectTime, selectedVehicle, selectedAirportName, today, watch]);
 
     // Simplified time options (every 15 minutes)
     const times = Array.from({ length: 96 }, (_, i) => {
@@ -191,7 +209,6 @@ const MainForm = () => {
 
     useEffect(() => {
         const data1 = selectedVehicle === 1 ? "from_airport" : selectedVehicle === 2 ? "to_airport" : "door_to_door";
-        const data2 = selectedVehicle === 1 ? dropoffInp : selectedVehicle === 2 ? pickupInp : "door_to_door";
         const params = new URLSearchParams({
             passenger_seat: String(watchedPassengers),
             distance: distance !== null ? String(distance) : "0",
@@ -202,10 +219,13 @@ const MainForm = () => {
             dog_seat_number: String(dogSeat),
             luggage_number: String(watchedLuggage),
             selected_location: selectedVehicle === 1 ? "from_airport" : selectedVehicle === 2 ? "to_airport" : "door_to_door",
-            selected_airport_name: selectedVehicle === 1 ? dropoffInp : selectedVehicle === 2 ? pickupInp : "door_to_door",
+            // selected_airport_name: selectedVehicle === 1 ? dropoffInp : selectedVehicle === 2 ? pickupInp : "door_to_door",
+            selected_airport_name: selectedAirportName ? selectedAirportName.name : "",
             time: selectTime || "",
         });
-        console.log("Passengers:", String(watchedPassengers), "time:", String(selectTime), "distance:", String(distance), "infantSeats:", "selected_airport_name", data2, String(infantSeats), "regularSeats:", String(regularSeats), "boosterSeats:", String(boosterSeats), "selected Location", data1, "luggage:", String(watchedLuggage))
+
+        console.log("Passengers:", String(watchedPassengers), "time:", String(selectTime), "distance:", String(distance), "selected_airport_name:", selectedAirportName?.name, "infantSeats:", String(infantSeats), "regularSeats:", String(regularSeats), "boosterSeats:", String(boosterSeats), "selected Location", data1, "luggage:", String(watchedLuggage));
+
         fetch(`${process.env.NEXT_PUBLIC_BASE_API_2}/fare?` + params)
             .then(res => res.json())
             .then(data => {
@@ -240,7 +260,7 @@ const MainForm = () => {
                 setMinimumFare(data?.minimumFare);
             })
             .catch(err => console.error('API Error:', err));
-    }, [watchedPassengers, selectTime, watchedLuggage, infantSeats, regularSeats, boosterSeats, distance, dropoffPlaceId, catSeat, dogSeat, selectedVehicle, pickupInp, dropoffInp, watch]);
+    }, [watchedPassengers, selectTime, watchedLuggage, infantSeats, regularSeats, boosterSeats, distance, dropoffPlaceId, catSeat, dogSeat, selectedVehicle, pickupInp, dropoffInp, selectedAirportName, watch]);
 
     const toggleAdditionalOptions = () => {
         setShowAdditionalPetsOptions(false);
@@ -252,6 +272,7 @@ const MainForm = () => {
     };
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
+        console.log(data.pickup)
         if (Number(distance) > 0) {
             setIsSubmitting(true);
             try {
@@ -297,7 +318,7 @@ const MainForm = () => {
                     }
                 };
 
-                // console.log("Submitting payload:", payload);
+                console.log("Submitting payload:", payload);
 
                 const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/travel-details`, {
                     method: "POST",
@@ -334,6 +355,7 @@ const MainForm = () => {
     const handlePickupInp: PlaceSelectHandler = (placeId, description) => {
         setPickupInp(description);
         setPickupPlaceId(placeId);
+        console.log(placeId)
     }
 
     const handleDropoffInp: PlaceSelectHandler = (placeId, description) => {
@@ -362,6 +384,7 @@ const MainForm = () => {
     }, [pickupPlaceId, dropoffPlaceId, changeDropoff, changePickup]);
 
     console.log(distance);
+    console.log(watch("pickup"))
     return (
         <div className="bg-white rounded p-7 w-full shadow-sm border border-mainColor">
             <figure className="-mt-[22%] md:-mt-[94px] pb-2">
@@ -401,6 +424,56 @@ const MainForm = () => {
                 }
                 <div className="flex flex-col md:flex-row gap-2">
                     <div className="flex flex-col gap-1 w-full md:w-1/2">
+
+                        <label className="block text-xl md:text-sm font-medium text-black">
+                            {selectedVehicle === 1 ? "Select From Airport" : "Provide Complete PickUp Address"}
+                        </label>
+                        {selectedVehicle === 1 ? (
+                            <select
+                                {...register("pickup", { required: "Pickup location is required" })}
+                                className="w-full p-2 py-2.5 border border-gray-300 rounded-sm focus:outline-0"
+                                defaultValue={selectedAirportName?.name || (airports[0]?.name ?? "")}
+                                onChange={(e) => {
+                                    const selected = airports.find(a => a.name === e.target.value);
+                                    if (selected) setSelectedAirportName(selected);
+                                }}
+                            >
+                                {airports.map((airport) => (
+                                    <option key={airport.id} value={airport.name}>
+                                        {airport.name}
+                                    </option>
+                                ))}
+                            </select>
+                        ) : (<LocationSearch setLocationChanging={setChangePickup} onSelect={handlePickupInp} />)}
+                        {errors.pickup && <span className="text-red-500 text-xs">{errors.pickup.message}</span>}
+                    </div>
+                    <div className="flex flex-col gap-1 w-full md:w-1/2">
+
+                        <label className="block text-xl md:text-sm font-medium text-black">
+                            {selectedVehicle === 2 ? "Select To Airport" : "Provide Complete Drop Off Address"}
+                        </label>
+                        {selectedVehicle === 2 ? (
+                            <select
+                                {...register("dropoff", { required: "Dropoff location is required" })}
+                                className="w-full p-2 border border-gray-300 rounded-sm focus:outline-0"
+                                defaultValue={selectedAirportName?.name || (airports[0]?.name ?? "")}
+                                onChange={(e) => {
+                                    const selected = airports.find(a => a.name === e.target.value);
+                                    if (selected) setSelectedAirportName(selected);
+                                }}
+                            >
+                                {airports.map((airport) => (
+                                    <option key={airport.id} value={airport?.name}>
+                                        {airport.name}
+                                    </option>
+                                ))}
+                            </select>
+                        ) : (<LocationSearch setLocationChanging={setChangeDropoff} onSelect={handleDropoffInp} />)}
+                        {errors.dropoff && <span className="text-red-500 text-xs">{errors.dropoff.message}</span>}
+                    </div>
+                </div>
+                <div className="flex flex-col md:flex-row gap-2">
+                    <div className="flex flex-col gap-1 w-full md:w-1/2">
                         <label className="block text-xl md:text-sm font-medium text-black">
                             Select Date
                         </label>
@@ -424,7 +497,7 @@ const MainForm = () => {
                             <span className="text-black text-xl md:text-sm ml-1">Passenger</span>
                             <div className="relative group">
                                 <div>
-                                    <HiOutlineInformationCircle className="text-red-500" />
+                                    <HiOutlineInformationCircle className="text-sm text-red-500" />
                                 </div>
                                 <div className="absolute hidden group-hover:block bg-black text-white text-xs rounded py-1 px-2 bottom-full mb-1 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
                                     Adults - 8 Years & above
@@ -439,6 +512,7 @@ const MainForm = () => {
                             ))}
                         </select>
                         {errors.passengers && <span className="text-red-500 text-xs">{errors.passengers.message}</span>}
+
                     </div>
                 </div>
                 <div className="flex flex-col md:flex-row gap-2">
@@ -454,11 +528,33 @@ const MainForm = () => {
                         </select>
                     </div>
                     <div className="flex flex-col gap-1 w-full md:w-1/2">
+                        <label className="block text-xl md:text-sm font-medium text-black">Stop Over</label>
+                        <select
+                            {...register("stopover")}
+                            className="w-full p-2 border border-gray-300 rounded-sm focus:outline-0"
+                        >
+                            {[0, 1, 2, 3, 4].map(num => (
+                                <option key={num} value={num}>{num}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="flex flex-col gap-1 w-full md:w-1/2">
+                        <label className="block text-xl md:text-sm font-medium text-black">Bike</label>
+                        <select
+                            {...register("byke")}
+                            className="w-full p-2 border border-gray-300 rounded-sm focus:outline-0"
+                        >
+                            {[0, 1, 2, 3, 4].map(num => (
+                                <option key={num} value={num}>{num}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="flex flex-col gap-1 w-full md:w-1/2">
                         <label className="text-xl md:text-sm flex gap-1 items-center font-medium text-black">
                             <span className="text-black ml-1">Children</span>
                             <div className="relative group">
                                 <div>
-                                    <HiOutlineInformationCircle className="text-red-500" />
+                                    <HiOutlineInformationCircle className="text-sm text-red-500" />
                                 </div>
                                 <div className="absolute hidden group-hover:block bg-black text-white text-xs rounded py-1 px-2 bottom-full mb-1 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
                                     Children - Upto 7 Years
@@ -488,45 +584,8 @@ const MainForm = () => {
                         </div>
                     )}
                 </div>
-                <div className="flex flex-col md:flex-row gap-2">
-                    <div className="flex flex-col gap-1 w-full md:w-1/2">
-                        <label className="block text-xl md:text-sm font-medium text-black">
-                            {selectedVehicle === 1 ? "Select From Airport" : "Provide Complete PickUp Address"}
-                        </label>
-                        {selectedVehicle === 1 ? (
-                            <select
-                                {...register("pickup", { required: "Pickup location is required" })}
-                                className="w-full p-2 border border-gray-300 rounded-sm focus:outline-0"
-                            >
-                                {airports.map(airport => (
-                                    <option key={airport.id} value={airport.name}>
-                                        {airport.name}
-                                    </option>
-                                ))}
-                            </select>
-                        ) : (<LocationSearch setLocationChanging={setChangePickup} onSelect={handlePickupInp} />)}
-                        {errors.pickup && <span className="text-red-500 text-xs">{errors.pickup.message}</span>}
-                    </div>
-                    <div className="flex flex-col gap-1 w-full md:w-1/2">
-                        <label className="block text-xl md:text-sm font-medium text-black">
-                            {selectedVehicle === 2 ? "Select To Airport" : "Provide Complete Drop Off Address"}
-                        </label>
-                        {selectedVehicle === 2 ? (
-                            <select
-                                {...register("dropoff", { required: "Dropoff location is required" })}
-                                className="w-full p-2 border border-gray-300 rounded-sm focus:outline-0"
-                            >
-                                {airports.map(airport => (
-                                    <option key={airport.id} value={airport.name}>
-                                        {airport.name}
-                                    </option>
-                                ))}
-                            </select>
-                        ) : (<LocationSearch setLocationChanging={setChangeDropoff} onSelect={handleDropoffInp} />)}
-                        {errors.dropoff && <span className="text-red-500 text-xs">{errors.dropoff.message}</span>}
-                    </div>
-                </div>
-                <div className="flex flex-col md:flex-row gap-2">
+
+                <div className="flex flex-col-reverse md:flex-row gap-2">
                     <button
                         type="button"
                         onClick={toggleAdditionalPetsOptions}
@@ -676,9 +735,9 @@ const MainForm = () => {
                     )}
                 </div>
                 <div className="flex justify-between items-end mt-4">
-                    <h2 className="font-bold text-xl font-poppins">Total: <span>${totalFare}</span></h2>
+                    <h2 className="font-bold text-xl font-poppins">Total: <span>${Math.round(totalFare)}</span></h2>
                     <div className="flex flex-col items-end">
-                        <p className="text-gray-700 text-xs px-3 md:text-sm font-lato font-bold bg-yellow-200 p-1 rounded">Get 10% Discount on cash payments</p>
+                        <p className="text-white text-xs px-3 md:text-sm font-lato font-bold bg-red-400 p-1 rounded">Get 10% Discount on cash payments</p>
                         <button
                             type="submit"
                             className="flex justify-end mt-3"

@@ -5,8 +5,9 @@ import Link from 'next/link';
 
 export default function NotFound() {
     return (
-        <main className="flex items-center justify-center h-screen bg-gradient-to-r from-blue-100 via-white to-blue-100 px-4">
-            <div className="text-center">
+        <main className='h-svh' >
+            <div className='bg-[#121212] h-[75px]'></div>
+            <div className="flex items-center justify-center h-[100svh] bg-gradient-to-r from-blue-100 via-white to-blue-100 px-4">
                 <h1 className="text-6xl font-bold text-indigo-600 mb-4">404</h1>
                 <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-4">
                     Page Not Found
