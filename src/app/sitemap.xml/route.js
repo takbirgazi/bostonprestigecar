@@ -35,7 +35,10 @@ export async function GET() {
     });
 
     const servicesData = await servicesResponse.json();
-    services = servicesData || [];
+    services = (servicesData || []).map(service => ({
+      id: service.id,
+      slug: service.slug,
+    }));
 
   } catch (error) {
     console.error('Error fetching blog/service data:', error);
@@ -58,7 +61,6 @@ export async function GET() {
       priority: 0.8,
     })),
   ];
-  console.log(services)
 
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
