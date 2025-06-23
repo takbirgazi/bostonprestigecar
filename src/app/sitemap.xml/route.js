@@ -27,7 +27,7 @@ export async function GET() {
     const blogData = await blogResponse.json();
     blogPosts = blogData.data || [];
 
-    const servicesResponse = await fetch('https://admin.bostonprestigecar.com/api/cities', {
+    const servicesResponse = await fetch('https://admin.bostonprestigecar.com/api/service-posts', {
       headers: {
         Accept: 'application/json',
       },
@@ -35,7 +35,7 @@ export async function GET() {
     });
 
     const servicesData = await servicesResponse.json();
-    services = servicesData.data || [];
+    services = servicesData || [];
 
   } catch (error) {
     console.error('Error fetching blog/service data:', error);
@@ -53,11 +53,12 @@ export async function GET() {
       priority: 0.8,
     })),
     ...services.map(service => ({
-      loc: `${service.url}`,
+      loc: `https://bostonprestigecar.com/${service.slug}`,
       lastmod: new Date().toISOString(),
       priority: 0.8,
     })),
   ];
+  console.log(services)
 
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

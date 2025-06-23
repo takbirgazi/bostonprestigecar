@@ -66,7 +66,7 @@ const Charges: React.FC<Charge> = ({ bookingData }) => {
                         <ChargeItem label="Snow Storm Charge" value={`$ ${Math.round(Number(bookingData.snow_strom_charge))}`} />
                     )}
                     {bookingData.additional_travel_detail?.extraSeatFare && Number(bookingData.additional_travel_detail.extraSeatFare) > 0 && (
-                        <ChargeItem label="Extra Sits Charge" value={`$ ${Math.round(Number(bookingData.additional_travel_detail.extraSeatFare))}`} />
+                        <ChargeItem label="Child Sits Charge" value={`$ ${Math.round(Number(bookingData.additional_travel_detail.extraSeatFare))}`} />
                     )}
                     {bookingData.additional_travel_detail?.totalPetsFare && Number(bookingData.additional_travel_detail.totalPetsFare) > 0 && (
                         <ChargeItem label="Pets Sits Charge" value={`$ ${Math.round(Number(bookingData.additional_travel_detail.totalPetsFare))}`} />
