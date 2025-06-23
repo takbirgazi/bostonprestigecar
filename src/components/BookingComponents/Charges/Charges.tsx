@@ -26,58 +26,58 @@ const Charges: React.FC<Charge> = ({ bookingData }) => {
                         <ChargeItem label="Vehicle" value={bookingData.vehicle_name} />
                     )}
                     {bookingData.distance && Number(bookingData.distance) > 0 && (
-                        <ChargeItem label="Distance" value={`${bookingData.distance.split(".")[0]} Miles`} />
+                        <ChargeItem label="Distance" value={`${Math.round(Number(bookingData.distance))} Miles`} />
                     )}
                     {bookingData.distance_fare && Number(bookingData.distance_fare) > 0 && (
-                        <ChargeItem label="Distance Fare" value={`$ ${bookingData.distance_fare}`} />
+                        <ChargeItem label="Fare" value={`$ ${Math.round(Number(bookingData.distance_fare))}`} />
                     )}
-                    {bookingData.minimum_fare && Number(bookingData.minimum_fare) > 0 && (
-                        <ChargeItem label="Minimum Fare" value={`$ ${bookingData.minimum_fare}`} />
-                    )}
+                    {/* {bookingData.minimum_fare && Number(bookingData.minimum_fare) > 0 && (
+                        <ChargeItem label="Minimum Fare" value={`$ ${Math.round(Number(bookingData.minimum_fare))}`} />
+                    )} */}
                     {bookingData.airport_toll && Number(bookingData.airport_toll) > 0 && (
-                        <ChargeItem label="Airport Toll" value={`$ ${bookingData.airport_toll}`} />
+                        <ChargeItem label="Airport Toll" value={`$ ${Math.round(Number(bookingData.airport_toll))}`} />
                     )}
                     {bookingData.airport_parking_toll && Number(bookingData.airport_parking_toll) > 0 && (
-                        <ChargeItem label="Airport Parking Toll" value={`$ ${bookingData.airport_parking_toll}`} />
+                        <ChargeItem label="Airport Parking Toll" value={`$ ${Math.round(Number(bookingData.airport_parking_toll))}`} />
                     )}
                     {/* <ChargeItem label="Parking Toll" value={`$ ${bookingData.parking_toll || 0}`} /> */}
                     {bookingData.gratuity && Number(bookingData.gratuity) > 0 && (
-                        <ChargeItem label={`Gratuity ${Number(bookingData.gratuity_percentage || 0)}%`} value={`$ ${(Number(bookingData.gratuity) || 0).toFixed(2)}`} />
+                        <ChargeItem label={`Gratuity ${Math.round(Number(bookingData.gratuity_percentage || 0))}%`} value={`$ ${Math.round(Number(bookingData.gratuity) || 0)}`} />
                     )}
                     {bookingData.extra_toll && Number(bookingData.extra_toll) > 0 && (
-                        <ChargeItem label="Extra Toll" value={`$ ${bookingData.extra_toll}`} />
+                        <ChargeItem label="Extra Toll" value={`$ ${Math.round(Number(bookingData.extra_toll))}`} />
                     )}
                     {bookingData.night_charge && Number(bookingData.night_charge) > 0 && (
-                        <ChargeItem label="Night Charge" value={`$ ${bookingData.night_charge}`} />
+                        <ChargeItem label="Night Charge" value={`$ ${Math.round(Number(bookingData.night_charge))}`} />
                     )}
                     {bookingData.hidden_night_charge && Number(bookingData.hidden_night_charge) > 0 && (
-                        <ChargeItem label="Hidden Night Charge" value={`$ ${bookingData.hidden_night_charge}`} />
+                        <ChargeItem label="Hidden Night Charge" value={`$ ${Math.round(Number(bookingData.hidden_night_charge))}`} />
                     )}
                     {bookingData.rush_hour_charge && Number(bookingData.rush_hour_charge) > 0 && (
-                        <ChargeItem label="Rush Hour Charge" value={`$ ${bookingData.rush_hour_charge}`} />
+                        <ChargeItem label="Rush Hour Charge" value={`$ ${Math.round(Number(bookingData.rush_hour_charge))}`} />
                     )}
                     {bookingData.extra_luggage && Number(bookingData.extra_luggage) > 0 && (
-                        <ChargeItem label="Extra Luggage" value={`$ ${bookingData.extra_luggage}`} />
+                        <ChargeItem label="Extra Luggage" value={`$ ${Math.round(Number(bookingData.extra_luggage))}`} />
                     )}
                     {bookingData.stop_over_charge && Number(bookingData.stop_over_charge) > 0 && (
-                        <ChargeItem label="Stop Over Charge" value={`$ ${bookingData.stop_over_charge}`} />
+                        <ChargeItem label="Stop Over Charge" value={`$ ${Math.round(Number(bookingData.stop_over_charge))}`} />
                     )}
                     {bookingData.snow_strom_charge && Number(bookingData.snow_strom_charge) > 0 && (
-                        <ChargeItem label="Snow Storm Charge" value={`$ ${bookingData.snow_strom_charge}`} />
+                        <ChargeItem label="Snow Storm Charge" value={`$ ${Math.round(Number(bookingData.snow_strom_charge))}`} />
                     )}
                     {bookingData.additional_travel_detail?.extraSeatFare && Number(bookingData.additional_travel_detail.extraSeatFare) > 0 && (
-                        <ChargeItem label="Extra Sits Charge" value={`$ ${bookingData.additional_travel_detail.extraSeatFare}`} />
+                        <ChargeItem label="Extra Sits Charge" value={`$ ${Math.round(Number(bookingData.additional_travel_detail.extraSeatFare))}`} />
                     )}
                     {bookingData.additional_travel_detail?.totalPetsFare && Number(bookingData.additional_travel_detail.totalPetsFare) > 0 && (
-                        <ChargeItem label="Pets Sits Charge" value={`$ ${bookingData.additional_travel_detail.totalPetsFare}`} />
+                        <ChargeItem label="Pets Sits Charge" value={`$ ${Math.round(Number(bookingData.additional_travel_detail.totalPetsFare))}`} />
                     )}
                     {bookingData.discountAmount && Number(bookingData.discountAmount) > 0 && (
-                        <ChargeItem label={`Discount ${Number(bookingData.cash_discount_percentage || 0)}%`} value={`- $ ${bookingData.discountAmount}`} />
+                        <ChargeItem label={`Discount ${Math.round(Number(bookingData.cash_discount_percentage || 0))}% on cash payment`} value={`- $ ${Math.round(Number(bookingData.discountAmount))}`} />
                     )}
                     {bookingData.total_fare && Number(bookingData.total_fare) > 0 && (
                         <div className="border-t pt-2 mt-2 text-lg font-semibold text-gray-900 flex justify-between">
                             <span>Total</span>
-                            <span>{`$ ${bookingData.total_fare}`}</span>
+                            <span>{`$ ${Math.round(Number(bookingData.total_fare))}`}</span>
                         </div>
                     )}
                 </div>

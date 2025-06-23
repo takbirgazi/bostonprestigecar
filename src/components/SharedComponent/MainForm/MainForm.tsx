@@ -220,7 +220,7 @@ const MainForm = () => {
             luggage_number: String(watchedLuggage),
             selected_location: selectedVehicle === 1 ? "from_airport" : selectedVehicle === 2 ? "to_airport" : "door_to_door",
             // selected_airport_name: selectedVehicle === 1 ? dropoffInp : selectedVehicle === 2 ? pickupInp : "door_to_door",
-            selected_airport_name: selectedAirportName ? selectedAirportName.name : "",
+            selected_airport_name: selectedAirportName ? selectedAirportName.name : "no name",
             time: selectTime || "",
         });
 
@@ -294,7 +294,7 @@ const MainForm = () => {
                     luggage_charge: luggageCharge.toString(),
                     distance: (distance ?? 0).toString(),
                     selected_location: selectedVehicle === 1 ? "from_airport" : selectedVehicle === 2 ? "to_airport" : "door_to_door",
-                    airport_toll: airportToll,
+                    airport_toll: airportToll.toString(),
                     airport_parking_toll: parkingToll,
                     distance_fare: distanceFare,
                     gratuity: gratuity.toString(),
@@ -327,7 +327,7 @@ const MainForm = () => {
                     },
                     body: JSON.stringify(payload),
                 });
-
+                console.log("response", response)
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -528,28 +528,6 @@ const MainForm = () => {
                         </select>
                     </div>
                     <div className="flex flex-col gap-1 w-full md:w-1/2">
-                        <label className="block text-xl md:text-sm font-medium text-black">Stop Over</label>
-                        <select
-                            {...register("stopover")}
-                            className="w-full p-2 border border-gray-300 rounded-sm focus:outline-0"
-                        >
-                            {[0, 1, 2, 3, 4].map(num => (
-                                <option key={num} value={num}>{num}</option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className="flex flex-col gap-1 w-full md:w-1/2">
-                        <label className="block text-xl md:text-sm font-medium text-black">Bike</label>
-                        <select
-                            {...register("byke")}
-                            className="w-full p-2 border border-gray-300 rounded-sm focus:outline-0"
-                        >
-                            {[0, 1, 2, 3, 4].map(num => (
-                                <option key={num} value={num}>{num}</option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className="flex flex-col gap-1 w-full md:w-1/2">
                         <label className="text-xl md:text-sm flex gap-1 items-center font-medium text-black">
                             <span className="text-black ml-1">Children</span>
                             <div className="relative group">
@@ -583,6 +561,28 @@ const MainForm = () => {
                             </select>
                         </div>
                     )}
+                    <div className="flex flex-col gap-1 w-full md:w-1/2">
+                        <label className="block text-xl md:text-sm font-medium text-black">Stop Over</label>
+                        <select
+                            {...register("stopover")}
+                            className="w-full p-2 border border-gray-300 rounded-sm focus:outline-0"
+                        >
+                            {[0, 1, 2, 3, 4].map(num => (
+                                <option key={num} value={num}>{num}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="flex flex-col gap-1 w-full md:w-1/2">
+                        <label className="block text-xl md:text-sm font-medium text-black">Bike</label>
+                        <select
+                            {...register("byke")}
+                            className="w-full p-2 border border-gray-300 rounded-sm focus:outline-0"
+                        >
+                            {[0, 1, 2, 3, 4].map(num => (
+                                <option key={num} value={num}>{num}</option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
 
                 <div className="flex flex-col-reverse md:flex-row gap-2">

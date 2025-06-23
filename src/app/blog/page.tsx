@@ -41,9 +41,8 @@ const BlogPage = () => {
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/blog?page=${page}`);
             const data: BlogApiResponse = await res.json();
-            setPosts(data);
-            // setPosts(data.data);
-            // setPagination(data);
+            setPosts(data.data);
+            setPagination(data);
         } catch (error) {
             console.error("Error fetching blog posts:", error);
         } finally {
@@ -65,8 +64,6 @@ const BlogPage = () => {
         <div className="bg-gradient-to-r from-blue-100 via-white to-blue-100">
             <PageHeader pageHeaderData={pageHeaderData} />
             <div className="max-w-7xl mx-auto px-4 py-10">
-                <h1 className="text-4xl font-bold mb-10 text-center">Latest Blog Posts</h1>
-
                 {loading ? (
                     <figure className='flex justify-center items-center'>
                         <Image width={50} height={50} src={loadingImage} alt="Loading..." />

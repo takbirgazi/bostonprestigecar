@@ -36,9 +36,9 @@ const Rents = () => {
         fetch(`${process.env.NEXT_PUBLIC_BASE_API}/blog`)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
+                console.log(data.data)
                 if (data) {
-                    setPosts(data);
+                    setPosts(data.data);
                 } else {
                     console.error("No data found in response");
                 }

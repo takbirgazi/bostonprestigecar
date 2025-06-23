@@ -32,7 +32,7 @@ const SingleBlogClient = ({ slug }: { slug: string }) => {
                 if (!res.ok) return;
 
                 const data = await res.json();
-                setRecentPosts(data);
+                setRecentPosts(data.data);
             } catch (error) {
                 console.error("Error fetching recent posts:", error);
             }

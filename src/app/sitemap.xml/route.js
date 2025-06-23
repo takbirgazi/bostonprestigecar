@@ -17,7 +17,7 @@ export async function GET() {
   let services = [];
 
   try {
-    const blogResponse = await fetch('https://admin.bostonprestigecar.com/api/blog', {
+    const blogResponse = await fetch('https://admin.bostonprestigecar.com/api/all-blog', {
       headers: {
         Accept: 'application/json',
       },

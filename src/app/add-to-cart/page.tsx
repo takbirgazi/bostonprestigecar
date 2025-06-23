@@ -206,7 +206,7 @@ export default function BookingSummaryPage() {
 
   return (
     <main className="min-h-screen bg-[#ffffff]">
-      <div className='h-[90px] bg-gray-700'></div>
+      <div className='h-[73px] bg-gray-700'></div>
       <div className="max-w-7xl mx-auto space-y-10 py-10 px-4 md:px-10">
         {/* Title */}
         <div className="text-center">
