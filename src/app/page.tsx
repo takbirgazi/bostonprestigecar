@@ -20,7 +20,7 @@ export default function Home() {
         <HeroMobile />
       </div>
       <div className="max-w-[1250px] mx-auto px-4">
-        <HomeContent />
+        <HomeContent /> 
         <AboutUs />
         <HowWork />
         {/* <OurServices /> */}
