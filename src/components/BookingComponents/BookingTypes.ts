@@ -25,13 +25,20 @@ export interface BookingTypes {
     rush_hour_charge: string,
     extra_luggage: string,
     stop_over_charge: string,
+    bike_charge: string,
     snow_strom_charge: string,
     distance_fare: string,
     discountAmount: string,
+    fare_after_discount: string,
     cash_discount_percentage: string,
+    extra_charge_of_city: string,
+    extra_toll_of_city: string,
     additional_travel_detail: {
         extraSeatFare: string,
         totalPetsFare: string,
+        below_24_month_seat_number: number,
+        five_yrs_to_eight_yrs_seat_number: number,
+        two_yrs_to_five_yrs_seat_number: number
     },
     minimum_fare: string,
 }

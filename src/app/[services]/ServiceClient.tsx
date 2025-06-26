@@ -73,22 +73,22 @@ const ServiceClient = ({ route }: { route: string }) => {
                     <MainForm />
                     <div className="w-full md:w-1/2 mx-auto">
                         <div className="py-5">
-                            <a href="https://g.co/kgs/J6Jpg8S" target="_blank" rel="noopener noreferrer">
+                            <a href="#" rel="noopener noreferrer">
                                 <figure>
                                     <Image src={google_ratings} alt="Google Ratings" height={600} width={800} />
                                 </figure>
                             </a>
-                            <a href="https://www.trustpilot.com/review/bostonexpresscab.com" target="_blank" rel="noopener noreferrer">
+                            <a href="https://www.trustpilot.com/review/bostonprestigecar.com" target="_blank" rel="noopener noreferrer">
                                 <figure>
                                     <Image src={trustpilot} alt="Trustpilot Ratings" height={600} width={800} />
                                 </figure>
                             </a>
-                            <a href="https://www.tripadvisor.com/Attraction_Review-g41948-d28108453-Reviews-Boston_Express_Cab-Woburn_Massachusetts.html" target="_blank" rel="noopener noreferrer">
+                            <a href="https://www.tripadvisor.com/Attraction_Review-g60890-d32974160-Reviews-Boston_Prestige_Car-Cambridge_Massachusetts.html" target="_blank" rel="noopener noreferrer">
                                 <figure>
                                     <Image src={tripadvisor} alt="Tripadvisor Ratings" height={600} width={800} />
                                 </figure>
                             </a>
-                            <a href="https://limotrust.org/listing/boston-express-cab-60" target="_blank" rel="noopener noreferrer">
+                            <a href="#" rel="noopener noreferrer">
                                 <figure>
                                     <Image src={limotrust} alt="Limotrust Ratings" height={600} width={800} />
                                 </figure>

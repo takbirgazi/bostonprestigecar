@@ -2,8 +2,8 @@ import Image from "next/image";
 import car_1 from "@/assets/images/homeImage_1.webp";
 import mobileIcon from "@/assets/images/icons/mobile.svg";
 import carIcon from "@/assets/images/icons/car.png";
-import review_1 from "@/assets/images/icons/review_1.png";
-import review_2 from "@/assets/images/icons/review_2.png";
+import review_1 from "@/assets/images/trustpilot.png";
+import review_2 from "@/assets/images/tripadvisor.png";
 
 
 const HomeContent = () => {
@@ -12,12 +12,16 @@ const HomeContent = () => {
             <div className="flex flex-col md:flex-row gap-8">
                 <div className="w-full md:w-1/2">
                     <div className="flex justify-center items-center">
-                        <figure>
-                            <Image src={review_1} alt="Review" height={80} width={600} />
-                        </figure>
-                        <figure>
-                            <Image src={review_2} alt="Review" height={80} width={600} />
-                        </figure>
+                        <a href="https://www.trustpilot.com/review/bostonprestigecar.com" target="_blank" rel="noopener noreferrer">
+                            <figure>
+                                <Image src={review_1} alt="Review" height={80} width={600} />
+                            </figure>
+                        </a>
+                        <a href="https://www.tripadvisor.com/Attraction_Review-g60890-d32974160-Reviews-Boston_Prestige_Car-Cambridge_Massachusetts.html" target="_blank" rel="noopener noreferrer">
+                            <figure>
+                                <Image src={review_2} alt="Review" height={80} width={600} />
+                            </figure>
+                        </a>
                     </div>
                     <div className="flex justify-center items-center">
                         <figure>

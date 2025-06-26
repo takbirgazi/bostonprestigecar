@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'admin.bostonexpresscab.com',
+        hostname: 'apis.bostonexpresscab.com',
       },
       {
         protocol: 'https',

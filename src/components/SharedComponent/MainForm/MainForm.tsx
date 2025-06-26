@@ -16,6 +16,7 @@ import { calculateDistance } from "@/app/utils/calculateDistance";
 import { useAppDispatch } from "@/lib/hooks";
 import { setFrom } from "@/lib/features/formdata/formdataSlice";
 import { AirportList, Inputs, PlaceSelectHandler } from "./MainFromTypes";
+import CustomDatePicker from "./CustomDatePicker/CustomDatePicker";
 
 
 const MainForm = () => {
@@ -28,8 +29,6 @@ const MainForm = () => {
         id: 1,
         place_id: "",
         name: ""
-        // place_id: "ChIJN0na1RRw44kRRFEtH8OUkww",
-        // name: "Boston Logan International Airport (BOS)"
     });
     const [catSeat, setCatSeat] = useState(0);
     const [catSeatTotal, setCatSeatTotal] = useState(0);
@@ -70,12 +69,18 @@ const MainForm = () => {
     const [discountAmount, setDiscountAmount] = useState(0);
     const [extraLuggage, setExtraLuggage] = useState(0);
     const [minimumFare, setMinimumFare] = useState(0);
+    const [bikeCharge, setBikeCharge] = useState(0);
+    const [fareAfterDiscount, setFareAfterDiscount] = useState(0);
+    const [extraChargeCity, setExtraChargeCity] = useState(0);
+    const [extraTollOfCity, setExtraTollOfCity] = useState(0); 
+    
     const dispatch = useAppDispatch();
 
     const {
         register,
         handleSubmit,
         watch,
+        control,
         formState: { errors },
     } = useForm<Inputs>({
         defaultValues: {
@@ -95,9 +100,8 @@ const MainForm = () => {
     const childSeatsCount = watch("childSeats");
     // Date handling
     const today = useMemo(() => new Date(), []);
-    const minDate = format(today, 'yyyy-MM-dd');
-    const maxDate = format(addDays(today, 90), 'yyyy-MM-dd'); // Allow booking up to 90 days in advance
-
+    const minDate = today;
+    const maxDate = addDays(today, 90); // Allow booking up to 90 days in advance
     // Sample airport data - replace with your actual airport data
     useEffect(() => {
         fetch(`${process.env.NEXT_PUBLIC_BASE_API_2}/airports`)
@@ -207,6 +211,10 @@ const MainForm = () => {
     const watchedPassengers = watch("passengers");
     const watchedLuggage = watch("luggage");
 
+    // Extract complex expressions to variables for useEffect dependencies
+    const watchedStopover = watch("stopover");
+    const watchedByke = watch("byke");
+
     useEffect(() => {
         const data1 = selectedVehicle === 1 ? "from_airport" : selectedVehicle === 2 ? "to_airport" : "door_to_door";
         const params = new URLSearchParams({
@@ -220,11 +228,14 @@ const MainForm = () => {
             luggage_number: String(watchedLuggage),
             selected_location: selectedVehicle === 1 ? "from_airport" : selectedVehicle === 2 ? "to_airport" : "door_to_door",
             // selected_airport_name: selectedVehicle === 1 ? dropoffInp : selectedVehicle === 2 ? pickupInp : "door_to_door",
-            selected_airport_name: selectedAirportName ? selectedAirportName.name : "no name",
+            selected_airport_name: ((selectedVehicle == 1) ? selectedAirportName.name : pickupInp),
+            destination_location: ((selectedVehicle == 2) ? selectedAirportName.name : dropoffInp),
             time: selectTime || "",
+            stop_over_number: String(watchedStopover),
+            bike_number: String(watchedByke),
         });
 
-        console.log("Passengers:", String(watchedPassengers), "time:", String(selectTime), "distance:", String(distance), "selected_airport_name:", selectedAirportName?.name, "infantSeats:", String(infantSeats), "regularSeats:", String(regularSeats), "boosterSeats:", String(boosterSeats), "selected Location", data1, "luggage:", String(watchedLuggage));
+        console.log("Passengers:", String(watchedPassengers), "time:", String(selectTime), "distance:", String(distance), "selected_airport_name:", ((selectedVehicle == 1) ? selectedAirportName.name : pickupInp), "destination_location:", ((selectedVehicle == 2) ? selectedAirportName.name : dropoffInp), "infantSeats:", String(infantSeats), "regularSeats:", String(regularSeats), "boosterSeats:", String(boosterSeats), "selected Location", data1, "luggage:", String(watchedLuggage), "Strop Over", String(watchedStopover), "Bike", String(watchedByke));
 
         fetch(`${process.env.NEXT_PUBLIC_BASE_API_2}/fare?` + params)
             .then(res => res.json())
@@ -245,8 +256,8 @@ const MainForm = () => {
                 setAdditionalPetsTotal(data.totalPetsFare);
                 setCatSeatTotal(data?.catSeatFare);
                 setDogSeatTotal(data?.dogSeatFare);
-                setParkingToll(data?.airport_toll);
-                setAirportToll(data?.parking_toll);
+                setParkingToll(data?.parking_toll);
+                setAirportToll(data?.airport_toll);
                 setDistanceFare(data?.distance_fare);
                 setGratuity(data?.gratuity);
                 setGratuityPercentage(data?.gratuity_percentage);
@@ -258,9 +269,13 @@ const MainForm = () => {
                 setDiscountAmount(data?.discountAmount);
                 setExtraLuggage(data?.extra_luggage);
                 setMinimumFare(data?.minimumFare);
+                setBikeCharge(data?.bikeCharge);
+                setFareAfterDiscount(data?.fareAfterDiscount);
+                setExtraChargeCity(data?.extraChargeOfCity);
+                setExtraTollOfCity(data?.extraTollOfCity);
             })
             .catch(err => console.error('API Error:', err));
-    }, [watchedPassengers, selectTime, watchedLuggage, infantSeats, regularSeats, boosterSeats, distance, dropoffPlaceId, catSeat, dogSeat, selectedVehicle, pickupInp, dropoffInp, selectedAirportName, watch]);
+    }, [watchedPassengers, selectTime, watchedLuggage, infantSeats, regularSeats, boosterSeats, distance, dropoffPlaceId, catSeat, dogSeat, selectedVehicle, pickupInp, dropoffInp, selectedAirportName, watchedStopover, watchedByke, watch]);
 
     const toggleAdditionalOptions = () => {
         setShowAdditionalPetsOptions(false);
@@ -307,6 +322,10 @@ const MainForm = () => {
                     discountAmount: discountAmount,
                     extra_luggage: extraLuggage,
                     minimum_fare: minimumFare,
+                    bike_charge: bikeCharge,
+                    fare_after_discount: fareAfterDiscount,
+                    extra_charge_of_city: extraChargeCity,
+                    extra_toll_of_city: extraTollOfCity,
                     additional_travel_detail: {
                         below_24_month_seat_number: infantSeats,
                         two_yrs_to_five_yrs_seat_number: regularSeats,
@@ -384,7 +403,6 @@ const MainForm = () => {
     }, [pickupPlaceId, dropoffPlaceId, changeDropoff, changePickup]);
 
     console.log(distance);
-    console.log(watch("pickup"))
     return (
         <div className="bg-white rounded p-7 w-full shadow-sm border border-mainColor">
             <figure className="-mt-[22%] md:-mt-[94px] pb-2">
@@ -477,13 +495,7 @@ const MainForm = () => {
                         <label className="block text-xl md:text-sm font-medium text-black">
                             Select Date
                         </label>
-                        <input
-                            type="date"
-                            min={minDate}
-                            max={maxDate}
-                            {...register("date", { required: "Date is required" })}
-                            className="w-full p-2 border border-gray-300 rounded-sm focus:outline-0"
-                        />
+                        <CustomDatePicker control={control} name="date" minDate={minDate} maxDate={maxDate} />
                         {errors.date && (
                             <p className="mt-1 text-sm text-red-600">{errors.date.message}</p>
                         )}
@@ -561,6 +573,14 @@ const MainForm = () => {
                             </select>
                         </div>
                     )}
+                    {
+                        childSeatsCount > 0 && <button
+                            type="button"
+                            onClick={toggleAdditionalOptions}
+                            className={`${showAdditionalOptions ? "text-white bg-mainColor" : "text-mainColor bg-transparent"} w-full text-sm  font-bold py-2 px-4 rounded border border-mainColor hover:bg-mainColor hover:text-white transition-colors duration-300 cursor-pointer md:hidden block`} >
+                            {showAdditionalOptions ? 'Hide Child Seat Options' : 'Add Child Seat'}
+                        </button>
+                    }
                     <div className="flex flex-col gap-1 w-full md:w-1/2">
                         <label className="block text-xl md:text-sm font-medium text-black">Stop Over</label>
                         <select
@@ -596,7 +616,7 @@ const MainForm = () => {
                         childSeatsCount > 0 && <button
                             type="button"
                             onClick={toggleAdditionalOptions}
-                            className={`${showAdditionalOptions ? "text-white bg-mainColor" : "text-mainColor bg-transparent"} w-full text-sm  font-bold py-2 px-4 rounded border border-mainColor hover:bg-mainColor hover:text-white transition-colors duration-300 cursor-pointer`} >
+                            className={`${showAdditionalOptions ? "text-white bg-mainColor" : "text-mainColor bg-transparent"} w-full text-sm  font-bold py-2 px-4 rounded border border-mainColor hover:bg-mainColor hover:text-white transition-colors duration-300 cursor-pointer hidden md:block`} >
                             {showAdditionalOptions ? 'Hide Child Seat Options' : 'Add Child Seat'}
                         </button>
                     }
@@ -605,7 +625,7 @@ const MainForm = () => {
                 {childSeatsCount > 0 && (
                     <div className="bg-white rounded relative">
                         {showAdditionalOptions && (
-                            <div className="absolute z-10 transition-all duration-500 bg-white w-full border border-gray-200 rounded p-4 mt-3 space-y-4">
+                            <div className="absolute z-10 -top-[200px] md:top-0 transition-all duration-500 bg-white w-80 md:w-full border border-gray-200 rounded p-4 mt-3 space-y-4">
                                 <div className="space-y-3">
                                     <div className="flex items-center justify-between">
                                         <div>

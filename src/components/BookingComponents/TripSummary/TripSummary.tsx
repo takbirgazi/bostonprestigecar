@@ -35,7 +35,7 @@ const TripSummary: React.FC<Charge> = ({ bookingData }) => {
                     <SummaryItem
                         icon={<FaUserFriends />}
                         label="Passengers"
-                        value={`${bookingData.passenger} Adults, ${bookingData.children} Children`}
+                        value={`${bookingData.passenger} Adults, ${(bookingData.additional_travel_detail.below_24_month_seat_number) + (bookingData.additional_travel_detail.five_yrs_to_eight_yrs_seat_number) + (bookingData.additional_travel_detail.two_yrs_to_five_yrs_seat_number)} Children`}
                     />
                     <SummaryItem icon={<FaSuitcase />} label="Luggage" value={bookingData.luggage} />
                 </div> : <h2 className="text-center font-bold text-2xl py-4">No data Found</h2>

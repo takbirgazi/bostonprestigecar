@@ -20,6 +20,7 @@ import car_5 from "@/assets/images/cars/car_5.webp";
 import car_6 from "@/assets/images/cars/car_6.webp";
 import { useAppSelector } from '@/lib/hooks';
 
+
 export default function BookingSummaryPage() {
   const fromData = useAppSelector(state => state.formData);
   const route = fromData.usrId;
@@ -52,13 +53,20 @@ export default function BookingSummaryPage() {
     rush_hour_charge: '',
     extra_luggage: '',
     stop_over_charge: '',
+    bike_charge: '',
     snow_strom_charge: '',
     distance_fare: '',
     discountAmount: '',
+    fare_after_discount: '',
     cash_discount_percentage: '',
+    extra_charge_of_city: '',
+    extra_toll_of_city: '',
     additional_travel_detail: {
       extraSeatFare: '',
       totalPetsFare: '',
+      below_24_month_seat_number: 0,
+      five_yrs_to_eight_yrs_seat_number: 0,
+      two_yrs_to_five_yrs_seat_number: 0
     },
     minimum_fare: ''
   })
@@ -216,89 +224,91 @@ export default function BookingSummaryPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Booking Form */}
-          <form onSubmit={handleSubmit} className="lg:col-span-2 bg-white rounded-3xl shadow-xl p-8 space-y-6 border-t-[6px] border-mainColor">
-            <div className="flex flex-col md:flex-row gap-2 items-center justify-between mb-2">
-              <h2 className="text-xl w-full font-semibold text-gray-800">Passenger Details</h2>
-              <div className="flex flex-col w-full md:flex-row md:gap-4 text-sm text-gray-600">
-                <label className="flex md:items-center gap-1">
-                  <input
-                    type="radio"
-                    checked={isTraveler}
-                    onChange={() => setIsTraveler(true)}
-                  />
-                  I&apos;m the traveler
-                </label>
-                <label className="flex md:items-center gap-1">
-                  <input
-                    type="radio"
-                    checked={!isTraveler}
-                    onChange={() => setIsTraveler(false)}
-                  />
-                  I&apos;m booking for someone else
-                </label>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {[
-                { name: 'passenger_name', icon: <FaUser />, label: 'Passenger Name', required: true },
-                { name: 'email', icon: <FaEnvelope />, label: 'Email', required: true },
-                ...((bookingData.selected_location === 'from_airport' || bookingData.selected_location === 'to_airport')
-                  ? [{ name: 'airline_name', icon: <FaPlaneDeparture />, label: 'Airline Name', required: bookingData.selected_location === 'to_airport' ? false : true }, { name: 'flight_no', icon: <FaPlaneDeparture />, label: 'Flight No.', required: bookingData.selected_location === 'to_airport' ? false : true },]
-                  : []),
-                { name: 'phone', icon: <FaPhone />, label: 'Phone', required: true },
-                { name: 'alternate_phone', icon: <FaPhone />, label: 'Alternate Phone', required: false },
-              ].map(({ name, icon, label, required }) => (
-                <div key={name} className="relative">
-                  <label className="text-sm text-gray-700 block mb-1">
-                    {label} {required && <span className='text-red-600'>*</span>}
-                  </label>
-                  <div className="flex items-center gap-2 border border-gray-300 rounded-lg px-4 py-2 bg-white">
-                    <span className="text-mainColor">{icon}</span>
+          <div className='lg:col-span-2'>
+            <form onSubmit={handleSubmit} className="bg-white rounded-3xl shadow-xl p-8 space-y-6 border-t-[6px] border-mainColor">
+              <div className="flex flex-col md:flex-row gap-2 items-center justify-between mb-2">
+                <h2 className="text-xl w-full font-semibold text-gray-800">Passenger Details</h2>
+                <div className="flex flex-col w-full md:flex-row md:gap-4 text-sm text-gray-600">
+                  <label className="flex md:items-center gap-1">
                     <input
-                      type="text"
-                      name={name}
-                      value={formData[name as keyof typeof formData]}
-                      onChange={handleInputChange}
-                      placeholder={`Enter ${(label ?? '').toLowerCase()}`}
-                      className="w-full focus:outline-none"
-                      required={required}
+                      type="radio"
+                      checked={isTraveler}
+                      onChange={() => setIsTraveler(true)}
                     />
-                  </div>
+                    I&apos;m the traveler
+                  </label>
+                  <label className="flex md:items-center gap-1">
+                    <input
+                      type="radio"
+                      checked={!isTraveler}
+                      onChange={() => setIsTraveler(false)}
+                    />
+                    I&apos;m booking for someone else
+                  </label>
                 </div>
-              ))}
-            </div>
+              </div>
 
-            <div>
-              <label className="text-sm text-gray-700 block mb-1">Mailing Address</label>
-              <textarea
-                name="mailing_address"
-                value={formData.mailing_address}
-                onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded-lg p-3"
-                rows={2}
-              />
-            </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {[
+                  { name: 'passenger_name', icon: <FaUser />, label: 'Passenger Name', required: true },
+                  { name: 'email', icon: <FaEnvelope />, label: 'Email', required: true },
+                  ...((bookingData.selected_location === 'from_airport' || bookingData.selected_location === 'to_airport')
+                    ? [{ name: 'airline_name', icon: <FaPlaneDeparture />, label: 'Airline Name', required: bookingData.selected_location === 'to_airport' ? false : true }, { name: 'flight_no', icon: <FaPlaneDeparture />, label: 'Flight No.', required: bookingData.selected_location === 'to_airport' ? false : true },]
+                    : []),
+                  { name: 'phone', icon: <FaPhone />, label: 'Phone', required: true },
+                  { name: 'alternate_phone', icon: <FaPhone />, label: 'Alternate Phone', required: false },
+                ].map(({ name, icon, label, required }) => (
+                  <div key={name} className="relative">
+                    <label className="text-sm text-gray-700 block mb-1">
+                      {label} {required && <span className='text-red-600'>*</span>}
+                    </label>
+                    <div className="flex items-center gap-2 border border-gray-300 rounded-lg px-4 py-2 bg-white">
+                      <span className="text-mainColor">{icon}</span>
+                      <input
+                        type="text"
+                        name={name}
+                        value={formData[name as keyof typeof formData]}
+                        onChange={handleInputChange}
+                        placeholder={`Enter ${(label ?? '').toLowerCase()}`}
+                        className="w-full focus:outline-none"
+                        required={required}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-            <div>
-              <label className="text-sm text-gray-700 block mb-1">Special Needs</label>
-              <textarea
-                name="special_needs"
-                value={formData.special_needs}
-                onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded-lg p-3"
-                rows={2}
-              />
-            </div>
+              <div>
+                <label className="text-sm text-gray-700 block mb-1">Mailing Address</label>
+                <textarea
+                  name="mailing_address"
+                  value={formData.mailing_address}
+                  onChange={handleInputChange}
+                  className="w-full border border-gray-300 rounded-lg p-3"
+                  rows={2}
+                />
+              </div>
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="px-5 w-full mt-6 bg-mainColor hover-bg-mainColor text-white font-semibold py-3 rounded-md text-lg transition-all disabled:opacity-50"
-            >
-              {isSubmitting ? 'Processing...' : 'Continue to Payment'}
-            </button>
-          </form>
+              <div>
+                <label className="text-sm text-gray-700 block mb-1">Special Needs</label>
+                <textarea
+                  name="special_needs"
+                  value={formData.special_needs}
+                  onChange={handleInputChange}
+                  className="w-full border border-gray-300 rounded-lg p-3"
+                  rows={2}
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="px-5 w-full mt-6 bg-mainColor hover-bg-mainColor text-white font-semibold py-3 rounded-md text-lg transition-all disabled:opacity-50 cursor-pointer"
+              >
+                {isSubmitting ? 'Processing...' : 'Continue to Payment'}
+              </button>
+            </form>
+          </div>
 
           {/* Summary Card - remains the same */}
           <div className="space-y-6">
