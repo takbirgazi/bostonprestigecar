@@ -144,7 +144,7 @@ const MainForm = () => {
                 )
             ) {
                 setErrorMsg("Select Correct Time!");
-                toast.error('We cannot process a reservation from 11 pm to 8 am. For urgent bookings please call: +16172306362.');
+                toast.error('We cannot process a reservation from 11 pm to 8 am. For urgent bookings please call: +1 (857) 7772125.');
                 setSelectTime(undefined);
                 return;
             }
@@ -164,7 +164,7 @@ const MainForm = () => {
 
                 if (selectedDate < twoHoursLater) {
                     setErrorMsg("Select Correct Time!");
-                    toast.error('We cannot process a reservation within 2 Hours of departure. For urgent bookings please call: +16172306362.');
+                    toast.error('We cannot process a reservation within 2 Hours of departure. For urgent bookings please call: +1 (857) 7772125.');
                     setSelectTime(undefined);
                     return;
                 }

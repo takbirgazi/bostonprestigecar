@@ -28,7 +28,7 @@ const Footer = () => {
                             </div>
                             <div className="flex gap-2 items-center">
                                 <MdCall className="text-mainColor" />
-                                <p className="text-[#c4c4c4]">+18577772125</p>
+                                <p className="text-[#c4c4c4]">+1 (857) 7772125</p>
                             </div>
                             <div className="flex gap-2 items-center">
                                 <IoMailOutline className="text-mainColor" />
@@ -53,7 +53,7 @@ const Footer = () => {
 
             {/* This section for fixed icon Call And WhatsApp start */}
             <div className="fixed left-5 bottom-7 flex flex-col gap-2">
-                <a className="rounded-full flex justify-center items-center" href="tel:+16172306362" target="_blank">
+                <a className="rounded-full flex justify-center items-center" href="tel:+18577772125" target="_blank">
                     {/* <MdAddCall className="text-3xl text-gray-400" /> */}
                     <figure className="h-[40px] w-[40px]">
                         <Image src={call} height={500} width={500} alt="Call" />

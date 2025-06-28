@@ -85,7 +85,7 @@ const Header = () => {
                     }
                 </div>
                 <div className="hidden md:flex justify-center items-center">
-                    <Link className="text-sm hover:shadow-2xl shadow-[#1ecb15] rounded-sm bg-mainColor text-white px-3 py-1.5 font-extrabold font-poppins flex items-center gap-1" href="tel:+16172306362" ><MdCall className="font-bold text-lg" /> +16172306362</Link>
+                    <Link className="text-sm hover:shadow-2xl shadow-[#1ecb15] rounded-sm bg-mainColor text-white px-3 py-1.5 font-extrabold font-poppins flex items-center gap-1" href="tel:+18577772125" ><MdCall className="font-bold text-lg" /> +1 (857) 777-2125</Link>
                 </div>
                 <MobileMenu atTop={atTop} links={links} />
             </div>
